@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <math.h>
 using namespace std;
 
 class Point
@@ -46,19 +47,39 @@ public:
 	{
 		cout << "X = " << x << "\tY = " << y << endl;
 	}
+	double distance(Point p)
+	{
+		return sqrt((p.x - this->x) * (p.x - this->x) + (p.y - this->y) * (p.y - this->y));
+	}
 };
+
+double Distance(Point a, Point b)
+{
+	return sqrt((a.get_x() - b.get_x()) * (a.get_x() - b.get_x()) + (a.get_y() - b.get_y()) * (a.get_y() - b.get_y()));
+}
 
 int main()
 {
 	setlocale(LC_ALL, "");
-	Point A;
+	double ax, ay, bx, by;
+	cout << "Введите координаты точки А: "; cin >> ax >> ay;
+	Point A(ax, ay);
+	A.print();
 	/*A.set_x(5);
 	A.set_y(17);
 	cout << A.get_x() << "\t" << A.get_y() << endl;
 
 	Point* Pa = &A;
 	cout << Pa->get_x() << "\t" << Pa->get_y() << endl;*/
-	A.print();
-	Point B(3, 2);
+	cout << "Введите координаты точки B: "; cin >> bx >> by;
+	Point B(bx, by);
 	B.print();
+
+	// Тест на метод distance
+
+	cout << "Метод: Расстояние от точки А до точки B равно " << A.distance(B) << endl;
+
+	// Тест на функцию Distance
+
+	cout << "Функция: Расстояние между точками А и B равно " << Distance(A, B) << endl;
 }
