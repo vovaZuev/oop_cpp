@@ -11,6 +11,10 @@ public:
 	{
 		return str;
 	}
+	char* get_str()
+	{
+		return str;
+	}
 	int get_size() const
 	{
 		return size;
@@ -20,7 +24,7 @@ public:
 	{
 		this->size = size;
 		this->str = new char[size] {};
-		cout << "Default constructor:\t" << this << endl;
+		cout << (size == 80 ? "Default " : "Size ") << "Constructor:\t" << this << endl;
 	}
 	String(const char* str)
 	{
@@ -44,6 +48,11 @@ public:
 	// Operators
 	String& operator=(const String& other)
 	{
+		//0) Проверить, не является ли другой объект нашим объектом
+		if (this == &other) return *this;
+		//1) Сначала удаляем старое значение объекта
+		delete[] this->str;
+		//2) Только потом присваиваем ему новое значение
 		this->size = other.size;
 		this->str = new char[size] {};
 		strcpy(this->str, other.str);
@@ -63,10 +72,20 @@ ostream& operator << (ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
+String operator + (const String& left, const String& right)
+{
+	String result = left.get_size() + right.get_size() - 1;
+	for (int i = 0; i < left.get_size(); i++)
+		result.get_str()[i] = left.get_str()[i];
+	for (int i = 0; i < right.get_size(); i++)
+		result.get_str()[left.get_size() - 1 + i] = right.get_str()[i];
+	return result;
+}
+
 int main()
 {
 	setlocale(LC_ALL, "");
-	String str;
+	/*String str;
 	str.print();
 	String str2 = "Hello";
 	str2.print();
@@ -75,5 +94,14 @@ int main()
 	cout << "str3:\t" << str3 << endl;
 	String str4;
 	str4 = str3;
-	cout << "str4:\t" << str4 << endl;
+	cout << "str4:\t" << str4 << endl;*/
+	/*String str1 = "Hello";
+	String str2;
+	str1 = str1;
+	cout << str1 << endl;
+	cout << str2 << endl;*/
+	String str1 = "Hello";
+	String str2 = "world";
+	String str3 = str1 + str2;
+	cout << str3 << endl;
 }
