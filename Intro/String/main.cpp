@@ -71,12 +71,16 @@ public:
 		delete[] temp;
 		for (int i = oldsize - 1; i < size - 1; i++)
 		{
-			this->str[i] = other.get_str()[i - oldsize + 1];
+			this->str[i] = other[i - oldsize + 1];
 		}
-		cout << "Operator +=: " << this << endl;
+		//cout << "Operator +=: " << this << endl;
 		return *this;
 	}
 	char& operator[](int index)
+	{
+		return str[index];
+	}
+	const char& operator[](int index) const
 	{
 		return str[index];
 	}
@@ -101,11 +105,13 @@ String operator + (const String& left, const String& right)
 	for (int i = 0; i < right.get_size(); i++)
 		result.get_str()[left.get_size() - 1 + i] = right.get_str()[i];*/
 	for (int i = 0; i < left.get_size(); i++)
-		result[i] = left.get_str()[i];
+		result[i] = left[i];
 	for (int i = 0; i < right.get_size(); i++)
-		result[left.get_size() - 1 + i] = right.get_str()[i];
+		result[left.get_size() - 1 + i] = right[i];
 	return result;
 }
+
+#define delim "---------------------------------------------------------------"
 
 int main()
 {
@@ -128,7 +134,11 @@ int main()
 	String str1 = "Hello";
 	String str2 = "world";
 	String str3 = str1 + str2;
+	cout << delim << endl;
+	cout << "str1: " << str1 << endl;
+	cout << "str2: " << str2 << endl;
 	cout << "Operator '=' test: " << str3 << endl;
 	cout << "Operator '[]' test: " << str1[1] << endl;
 	cout << "Operator '+=' test: " << (str1 += str3) << endl;
+	cout << delim << endl;
 }
