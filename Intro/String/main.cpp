@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace std;
 
+class String;
+String operator + (const String& left, const String& right);
+
 class String
 {
 	char* str; // Указатель на строку в динамической памяти
@@ -61,20 +64,7 @@ public:
 	}
 	String& operator+=(const String& other)
 	{
-		int oldsize = size;
-		char* temp = new char[oldsize] {};
-		strcpy(temp, this->str);
-		delete[] this->str;
-		this->size += other.size - 1;
-		this->str = new char[size] {};
-		strcpy(this->str, temp);
-		delete[] temp;
-		for (int i = oldsize - 1; i < size - 1; i++)
-		{
-			this->str[i] = other[i - oldsize + 1];
-		}
-		//cout << "Operator +=: " << this << endl;
-		return *this;
+		return *this = *this + other;
 	}
 	char& operator[](int index)
 	{
@@ -139,6 +129,7 @@ int main()
 	cout << "str2: " << str2 << endl;
 	cout << "Operator '=' test: " << str3 << endl;
 	cout << "Operator '[]' test: " << str1[1] << endl;
+	cout << delim << endl;
 	cout << "Operator '+=' test: " << (str1 += str3) << endl;
 	cout << delim << endl;
 }
