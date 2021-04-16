@@ -59,6 +59,10 @@ public:
 		cout << "Copy Assignment:\t" << this << endl;
 		return *this;
 	}
+	char& operator[](int index)
+	{
+		return str[index];
+	}
 	// Methods
 	void print() const
 	{
@@ -75,10 +79,14 @@ ostream& operator << (ostream& os, const String& obj)
 String operator + (const String& left, const String& right)
 {
 	String result = left.get_size() + right.get_size() - 1;
-	for (int i = 0; i < left.get_size(); i++)
+	/*for (int i = 0; i < left.get_size(); i++)
 		result.get_str()[i] = left.get_str()[i];
 	for (int i = 0; i < right.get_size(); i++)
-		result.get_str()[left.get_size() - 1 + i] = right.get_str()[i];
+		result.get_str()[left.get_size() - 1 + i] = right.get_str()[i];*/
+	for (int i = 0; i < left.get_size(); i++)
+		result[i] = left.get_str()[i];
+	for (int i = 0; i < right.get_size(); i++)
+		result[left.get_size() - 1 + i] = right.get_str()[i];
 	return result;
 }
 
@@ -104,4 +112,5 @@ int main()
 	String str2 = "world";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
+	cout << str1[1] << endl;
 }
