@@ -59,6 +59,23 @@ public:
 		cout << "Copy Assignment:\t" << this << endl;
 		return *this;
 	}
+	String& operator+=(const String& other)
+	{
+		int oldsize = size;
+		char* temp = new char[oldsize] {};
+		strcpy(temp, this->str);
+		delete[] this->str;
+		this->size += other.size - 1;
+		this->str = new char[size] {};
+		strcpy(this->str, temp);
+		delete[] temp;
+		for (int i = oldsize - 1; i < size - 1; i++)
+		{
+			this->str[i] = other.get_str()[i - oldsize + 1];
+		}
+		cout << "Operator +=: " << this << endl;
+		return *this;
+	}
 	char& operator[](int index)
 	{
 		return str[index];
@@ -111,6 +128,7 @@ int main()
 	String str1 = "Hello";
 	String str2 = "world";
 	String str3 = str1 + str2;
-	cout << str3 << endl;
-	cout << str1[1] << endl;
+	cout << "Operator '=' test: " << str3 << endl;
+	cout << "Operator '[]' test: " << str1[1] << endl;
+	cout << "Operator '+=' test: " << (str1 += str3) << endl;
 }
