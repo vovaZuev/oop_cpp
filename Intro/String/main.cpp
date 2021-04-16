@@ -23,30 +23,30 @@ public:
 		return size;
 	}
 	// Constructors
-	String(int size = 80)
+	explicit String(int size = 80) : size(size), str(new char[size] {})
 	{
-		this->size = size;
-		this->str = new char[size] {};
+		/*this->size = size;
+		this->str = new char[size] {};*/
 		cout << (size == 80 ? "Default " : "Size ") << "Constructor:\t" << this << endl;
 	}
-	String(const char* str)
+	String(const char* str) : String(strlen(str) + 1)
 	{
-		this->size = strlen(str) + 1;
-		this->str = new char[size] {};
+		/*this->size = strlen(str) + 1;
+		this->str = new char[size] {};*/
 		strcpy(this->str, str);
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(const String& other)
+	String(const String& other) : String(other.str)
 	{
-		this->size = other.size;
-		this->str = new char[size] {};
-		strcpy(this->str, other.str);
+		/*this->size = other.size;
+		this->str = new char[size] {};*/
+		//strcpy(this->str, other.str);
 		cout << "Copy Constructor:\t" << this << endl;
 	}
-	String(String&& other)
+	String(String&& other) : size(other.size), str(other.str)
 	{
-		this->size = other.size;
-		this->str = other.str;
+		/*this->size = other.size;
+		this->str = other.str;*/
 		other.str = nullptr;
 		cout << "Move Constructor: " << this << endl;
 	}
@@ -105,7 +105,7 @@ ostream& operator << (ostream& os, const String& obj)
 
 String operator + (const String& left, const String& right)
 {
-	String result = left.get_size() + right.get_size() - 1;
+	String result(left.get_size() + right.get_size() - 1);
 	/*for (int i = 0; i < left.get_size(); i++)
 		result.get_str()[i] = left.get_str()[i];
 	for (int i = 0; i < right.get_size(); i++)
@@ -148,4 +148,5 @@ int main()
 	cout << delim << endl;
 	cout << "Operator '+=' test: " << (str1 += str3) << endl;
 	cout << delim << endl;
+	
 }
