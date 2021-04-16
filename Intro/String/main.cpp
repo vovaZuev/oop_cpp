@@ -43,6 +43,13 @@ public:
 		strcpy(this->str, other.str);
 		cout << "Copy Constructor:\t" << this << endl;
 	}
+	String(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "Move Constructor: " << this << endl;
+	}
 	~String()
 	{
 		delete[] this->str;
@@ -60,6 +67,15 @@ public:
 		this->str = new char[size] {};
 		strcpy(this->str, other.str);
 		cout << "Copy Assignment:\t" << this << endl;
+		return *this;
+	}
+	String& operator = (String&& other)
+	{
+		delete[] this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "Move Assignment: " << this << endl;
 		return *this;
 	}
 	String& operator+=(const String& other)
