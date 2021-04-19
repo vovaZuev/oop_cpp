@@ -105,8 +105,7 @@ ostream& operator << (ostream& os, const String& obj)
 
 istream& operator >> (istream& is, String& obj)
 {
-	is >> obj.get_str();
-	return is;
+	return is >> obj.get_str();
 }
 
 String operator + (const String& left, const String& right)
