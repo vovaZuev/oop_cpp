@@ -103,6 +103,12 @@ ostream& operator << (ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
+istream& operator >> (istream& is, String& obj)
+{
+	is >> obj.get_str();
+	return is;
+}
+
 String operator + (const String& left, const String& right)
 {
 	String result(left.get_size() + right.get_size() - 1);
@@ -137,7 +143,7 @@ int main()
 	str1 = str1;
 	cout << str1 << endl;
 	cout << str2 << endl;*/
-	String str1 = "Hello";
+	/*String str1 = "Hello";
 	String str2 = "world";
 	String str3 = str1 + str2;
 	cout << delim << endl;
@@ -147,6 +153,9 @@ int main()
 	cout << "Operator '[]' test: " << str1[1] << endl;
 	cout << delim << endl;
 	cout << "Operator '+=' test: " << (str1 += str3) << endl;
-	cout << delim << endl;
+	cout << delim << endl;*/
+	String str;
+	cin >> str;
+	cout << str << endl;
 	
 }
