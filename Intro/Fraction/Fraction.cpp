@@ -1,4 +1,4 @@
-#include "Fraction.h"
+п»ї#include "Fraction.h"
 
 int Fraction::get_integer() const
 {
@@ -164,12 +164,12 @@ Fraction& Fraction::reduce()
 {
 	if (!numerator) return *this;
 	int more, less, rest;
-	// Определяем, что больше - числитель или знаменатель.
+	// РћРїСЂРµРґРµР»СЏРµРј, С‡С‚Рѕ Р±РѕР»СЊС€Рµ - С‡РёСЃР»РёС‚РµР»СЊ РёР»Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ.
 	if (numerator > denominator)
 		more = numerator, less = denominator;
 	else
 		less = numerator, more = denominator;
-	// Вычисляем НОД
+	// Р’С‹С‡РёСЃР»СЏРµРј РќРћР”
 	do
 	{
 		rest = more % less;
@@ -177,7 +177,7 @@ Fraction& Fraction::reduce()
 		less = rest;
 	} while (rest);
 	int GCD = more; // Greatest Common Divisor
-	// Сокращаем дробь.
+	// РЎРѕРєСЂР°С‰Р°РµРј РґСЂРѕР±СЊ.
 	numerator /= GCD;
 	denominator /= GCD;
 	return *this;
