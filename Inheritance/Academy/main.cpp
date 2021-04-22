@@ -92,7 +92,7 @@ public:
 	// Constructors
 	Student(
 		const string& last_name, const string& first_name, unsigned int age, // parent class attribs
-		const string& specialty, double rating, unsigned int semester // derived class attribs
+		const string& specialty, double rating, unsigned int semester = 5 // derived class attribs
 	) : Human(last_name, first_name, age)
 	{
 		set_specialty(specialty);
@@ -195,9 +195,9 @@ public:
 	// Constructors
 	Graduate(
 		const string& last_name, const string& first_name, unsigned int age,
-		const string& specialty, double rating, unsigned int semester,
+		const string& specialty, double rating,
 		const string& thesis, bool is_hired
-	) : Student(last_name, first_name, age, specialty, rating, semester)
+	) : Student(last_name, first_name, age, specialty, rating)
 	{
 		set_thesis(thesis);
 		set_is_hired(is_hired);
@@ -230,7 +230,7 @@ int main()
 	Teacher ivanich("Ivan", "Ivanov", 56, "physics", 23, 7.6);
 	ivanich.info();
 	cout << del << endl;
-	Graduate max("Maxim", "Maximov", 21, "chemistry", 4.7, 5, "How to make water from acid", true);
+	Graduate max("Maxim", "Maximov", 21, "chemistry", 4.7, "How to make water from acid", true);
 	max.info();
 	cout << del << endl;
 }
