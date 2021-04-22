@@ -171,16 +171,66 @@ public:
 	}
 };
 
+class Graduate : public Student
+{
+	string thesis;
+	bool is_hired;
+public:
+	const string& get_thesis() const
+	{
+		return thesis;
+	}
+	bool get_hired() const
+	{
+		return is_hired;
+	}
+	void set_thesis(const string& thesis)
+	{
+		this->thesis = thesis;
+	}
+	void set_is_hired(bool is_hired)
+	{
+		this->is_hired = is_hired;
+	}
+	// Constructors
+	Graduate(
+		const string& last_name, const string& first_name, unsigned int age,
+		const string& specialty, double rating, unsigned int semester,
+		const string& thesis, bool is_hired
+	) : Student(last_name, first_name, age, specialty, rating, semester)
+	{
+		set_thesis(thesis);
+		set_is_hired(is_hired);
+		cout << "GraduateConstructor:\t" << this << endl;
+	}
+	~Graduate()
+	{
+		cout << "GraduateDestructor:\t" << this << endl;
+	}
+	// Methods
+	void info() const
+	{
+		Student::info();
+		cout << "Thesis: " << thesis << "; Is hired? " << (is_hired ? "Yes" : "No") << ".\n";
+	}
+};
+
 #define del "---------------------------------------------------------"
 
 int main()
 {
 	setlocale(LC_ALL, "");
-	/*Human vasily("Pupkin", "Vasily", 18);
-	vasily.info();*/
+	cout << del << endl;
+	Human vasily("Pupkin", "Vasily", 18);
+	vasily.info();
+	cout << del << endl;
 	Student borya("Pupkin", "Boris", 19, "math", 4.4, 2);
 	borya.info();
 	cout << del << endl;
 	Teacher ivanich("Ivan", "Ivanov", 56, "physics", 23, 7.6);
 	ivanich.info();
+	cout << del << endl;
+	Graduate max("Maxim", "Maximov", 21, "chemistry", 4.7, 5, "How to make water from acid", true);
+	max.info();
+	cout << del << endl;
 }
