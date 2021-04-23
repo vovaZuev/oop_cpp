@@ -42,12 +42,12 @@ public:
 		set_age(age);
 		cout << "HumanConstructor:\t" << this << endl;
 	}
-	~Human()
+	virtual ~Human()
 	{
 		cout << "HumanDestructor:\t" << this << endl;
 	}
 	// Methods
-	void info() const
+	virtual void info() const
 	{
 		cout << last_name << " " << first_name << ", " << age << " years old." << endl;
 	}
@@ -164,7 +164,7 @@ public:
 		cout << "TeacherDestructor:\t" << this << endl;
 	}
 	// Methods
-	void info()
+	void info() const
 	{
 		Human::info();
 		cout << "Specialty: " << specialty << ", Experience: " << experience << " years, Evil: " << evil << " points." << endl;
@@ -220,7 +220,7 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "");
-	cout << del << endl;
+	/*cout << del << endl;
 	Human vasily("Pupkin", "Vasily", 18);
 	vasily.info();
 	cout << del << endl;
@@ -233,4 +233,36 @@ int main()
 	Graduate max("Maxim", "Maximov", 21, "chemistry", 4.7, "How to make water from acid", true);
 	max.info();
 	cout << del << endl;
+
+	Human* p_borya = &borya;
+	Human* p_teacher = &ivanich;
+	Human* p_grad = &max;
+
+	Human* group[] =
+	{
+		&borya,
+		&ivanich,
+		&max
+	};*/
+
+	Human* group[] =
+	{
+		new Student("Pupkin", "Boris", 19, "math", 4.4, 2),
+		new Student("Suslikov", "Ivan", 20, "computer science", 4.5, 3),
+		new Teacher("Ivan", "Ivanov", 56, "physics", 23, 7.6),
+		new Student("Pijikov", "Filipp", 21, "literature", 4.1, 4),
+		new Graduate("Maxim", "Maximov", 21, "chemistry", 4.7, "How to make water from acid", true)
+	};
+
+	cout << del << endl;
+	cout << sizeof(group) << endl;
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
+	{
+		group[i]->info();
+		cout << del << endl;
+	}
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
+	{
+		delete group[i];
+	}
 }
