@@ -96,9 +96,8 @@ public:
 		{
 			temp = temp->pNext;
 		}
-		Element* del = temp->pNext;
+		delete temp->pNext;
 		temp->pNext = nullptr;
-		delete del;
 		size--;
 	}
 	// Methods
@@ -116,6 +115,9 @@ public:
 	}
 };
 
+#define TEST_REMOVE
+//#define TEST_ADD
+
 int main()
 {
 	setlocale(LC_ALL, "");
@@ -127,25 +129,28 @@ int main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
+#ifdef TEST_REMOVE
 	list.pop_front();
 	list.print();
 	list.pop_back();
 	list.print();
-	//// push_front & push_back test
-	//list.push_front(999);
-	//list.print();
-	//list.push_back(777);
-	//list.print();
-	//// insert test
-	//list.insert(999, 0);
-	//list.print();
+#endif
+#ifdef TEST_ADD
+	// push_front & push_back test
+	list.push_front(999);
+	list.print();
+	list.push_back(777);
+	list.print();
+	// insert test
+	list.insert(999, 0);
+	list.print();
 
-	//cout << "Введите размер списка: "; cin >> n;
-	//ForwardList list2;
-	//for (int i = 0; i < n; i++)
-	//{
-	//	list2.push_front(rand() % 100);
-	//}
-	//list2.print();
-	
+	cout << "Введите размер списка: "; cin >> n;
+	ForwardList list2;
+	for (int i = 0; i < n; i++)
+	{
+		list2.push_front(rand() % 100);
+	}
+	list2.print();
+#endif
 }
