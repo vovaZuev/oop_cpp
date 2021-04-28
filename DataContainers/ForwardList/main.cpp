@@ -39,6 +39,19 @@ public:
 		New->pNext = Head;
 		Head = New;
 	}
+	void push_back(int Data)
+	{
+		Element* New = new Element(Data);
+		Element* temp = Head;
+		while (temp != nullptr)
+		{
+			if (temp->pNext != nullptr)
+				temp = temp->pNext; // переход на следующий элемент
+			else
+				break;
+		}
+		temp->pNext = New;
+	}
 	// Methods
 	void print() const
 	{
@@ -62,5 +75,9 @@ int main()
 	{
 		list.push_front(rand() % 100);
 	}
+	list.print();
+	list.push_front(999);
+	list.print();
+	list.push_back(777);
 	list.print();
 }
