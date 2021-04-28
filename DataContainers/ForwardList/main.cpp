@@ -43,13 +43,21 @@ public:
 	{
 		Element* New = new Element(Data);
 		Element* temp = Head;
-		while (temp != nullptr)
+		while (temp->pNext != nullptr)
 		{
-			if (temp->pNext != nullptr)
-				temp = temp->pNext; // переход на следующий элемент
-			else
-				break;
+			temp = temp->pNext;
 		}
+		temp->pNext = New;
+	}
+	void insert(int Data, int index)
+	{
+		Element* New = new Element(Data);
+		Element* temp = Head;
+		for (int i = 0; i < index - 1; i++)
+		{
+			temp = temp->pNext;
+		}
+		New->pNext = temp->pNext;
 		temp->pNext = New;
 	}
 	// Methods
@@ -76,8 +84,13 @@ int main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
-	list.push_front(999);
+	// push_front & push_back test
+	/*list.push_front(999);
 	list.print();
 	list.push_back(777);
+	list.print();*/
+	// insert test
+	list.insert(999, 2);
 	list.print();
+	
 }
