@@ -51,14 +51,34 @@ public:
 	}
 	void insert(int Data, int index)
 	{
-		Element* New = new Element(Data);
+		int n = 0;
 		Element* temp = Head;
-		for (int i = 0; i < index - 1; i++)
+		while (temp != nullptr)
 		{
 			temp = temp->pNext;
+			n++;
 		}
-		New->pNext = temp->pNext;
-		temp->pNext = New;
+		temp = Head;
+		if (index == 0)
+		{
+			push_front(Data);
+		}
+		else if (index == n)
+		{
+			push_back(Data);
+		}
+		else if (index > 0 && index < n)
+		{
+			Element* New = new Element(Data);
+			for (int i = 0; i < index - 1; i++)
+			{
+				temp = temp->pNext;
+			}
+			New->pNext = temp->pNext;
+			temp->pNext = New;
+		}
+		else
+			cout << "Ошибка вставки: неверный индекс!" << endl;
 	}
 	// Methods
 	void print() const
