@@ -102,13 +102,13 @@ public:
 	}
 	void erase(int index)
 	{
-		if (index < 0 || index >= Element::count) return;
+		if (index < 0 || index >= size) return;
 		if (index == 0)
 		{
 			pop_front();
 			return;
 		}
-		if (index == Element::count - 1)
+		if (index == size - 1)
 		{
 			pop_back();
 			return;
