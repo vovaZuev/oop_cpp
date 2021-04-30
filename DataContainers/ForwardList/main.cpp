@@ -100,6 +100,29 @@ public:
 		temp->pNext = nullptr;
 		size--;
 	}
+	void erase(int index)
+	{
+		if (index < 0 || index >= Element::count) return;
+		if (index == 0)
+		{
+			pop_front();
+			return;
+		}
+		if (index == Element::count - 1)
+		{
+			pop_back();
+			return;
+		}
+		Element* temp = Head;
+		for (int i = 1; i < index; i++)
+		{
+			temp = temp->pNext;
+		}
+		Element* next = temp->pNext->pNext;
+		delete temp->pNext;
+		temp->pNext = next;
+		size--;
+	}
 	// Methods
 	void print() const
 	{
@@ -133,6 +156,8 @@ int main()
 	list.pop_front();
 	list.print();
 	list.pop_back();
+	list.print();
+	list.erase(4);
 	list.print();
 #endif
 #ifdef TEST_ADD
