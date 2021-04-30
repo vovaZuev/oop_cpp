@@ -12,12 +12,12 @@ public:
 	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
 	{
 		count++;
-		cout << "ElementConstructor:\t" << this << endl;
+		//cout << "ElementConstructor:\t" << this << endl;
 	}
 	~Element()
 	{
 		count--;
-		cout << "ElementDestructor:\t" << this << endl;
+		//cout << "ElementDestructor:\t" << this << endl;
 	}
 	friend class ForwardList;
 };
@@ -33,18 +33,27 @@ public:
 	{
 		this->size = 0;
 		this->Head = nullptr;
-		cout << "ListConstructor:\t" << this << endl;
+		//cout << "ListConstructor:\t" << this << endl;
 	}
 	~ForwardList()
 	{
-		cout << "ListDestructor:\t" << this << endl;
+		/*Element* temp = Head;
+		while (temp)
+		{
+			Element* del = temp;
+			temp = temp->pNext;
+			delete del;
+		}*/
+		while (Head) pop_front();
+		//cout << "ListDestructor:\t" << this << endl;
 	}
 	// Adding elements
 	void push_front(int Data)
 	{
-		Element* New = new Element(Data);
+		/*Element* New = new Element(Data);
 		New->pNext = Head;
-		Head = New;
+		Head = New;*/
+		Head = new Element(Data, Head);
 		size++;
 	}
 	void push_back(int Data)
@@ -84,6 +93,7 @@ public:
 	// Removing elements
 	void pop_front()
 	{
+		if (Head == nullptr) return;
 		Element* temp = Head;	// 1) Запоминаем адрес удаляемого элемента
 		Head = Head->pNext;		// 2) Исключаем элемент из списка
 		delete temp;			// 3) Удаляем элемент из памяти
@@ -91,6 +101,7 @@ public:
 	}
 	void pop_back()
 	{
+		if (Head == nullptr) return;
 		Element* temp = Head;
 		while (temp->pNext->pNext != nullptr)
 		{
@@ -126,6 +137,7 @@ public:
 	// Methods
 	void print() const
 	{
+		/*
 		// Для того, чтобы ходить по списку, нужны: 1) итератор, 2) Цикл
 		Element* temp = Head; // temp - это итератор - указатель, при помощи которого можно получить доступ к элементам структуры данных
 		while (temp != nullptr)
@@ -133,12 +145,15 @@ public:
 			cout << temp << "\t" << temp->Data << "\t" << temp->pNext << endl;
 			temp = temp->pNext; // переход на следующий элемент
 		}
+		*/
+		for(Element* temp = Head; temp; temp=temp->pNext)
+			cout << temp << "\t" << temp->Data << "\t" << temp->pNext << endl;
 		cout << "В списке " << size << " элементов." << endl;
 		cout << "Общее количество элементов: " << Element::count << endl;
 	}
 };
 
-#define TEST_REMOVE
+//#define TEST_REMOVE
 //#define TEST_ADD
 
 int main()
@@ -151,7 +166,8 @@ int main()
 	{
 		list.push_front(rand() % 100);
 	}
-	list.print();
+	//list.print();
+	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
 	list.pop_front();
 	list.print();
