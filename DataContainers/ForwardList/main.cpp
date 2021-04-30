@@ -157,7 +157,9 @@ int main()
 	list.print();
 	list.pop_back();
 	list.print();
-	list.erase(4);
+	int i;
+	cout << "Введите индекс удаляемого элемента: "; cin >> i;
+	list.erase(i);
 	list.print();
 #endif
 #ifdef TEST_ADD
