@@ -33,7 +33,7 @@ public:
 	{
 		this->size = 0;
 		this->Head = nullptr;
-		//cout << "ListConstructor:\t" << this << endl;
+		cout << "ListConstructor:\t" << this << endl;
 	}
 	~ForwardList()
 	{
@@ -45,7 +45,7 @@ public:
 			delete del;
 		}*/
 		while (Head) pop_front();
-		//cout << "ListDestructor:\t" << this << endl;
+		cout << "ListDestructor:\t" << this << endl;
 	}
 	// Adding elements
 	void push_front(int Data)
@@ -102,6 +102,11 @@ public:
 	void pop_back()
 	{
 		if (Head == nullptr) return;
+		if (Head->pNext == nullptr)
+		{
+			pop_front();
+			return;
+		}
 		Element* temp = Head;
 		while (temp->pNext->pNext != nullptr)
 		{
@@ -153,18 +158,17 @@ public:
 	}
 };
 
-//#define TEST_REMOVE
-//#define TEST_ADD
-
 int main()
 {
 	setlocale(LC_ALL, "");
+/*
 	int n;
 	cout << "Введите размер списка: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
 	{
 		list.push_front(rand() % 100);
+		//list.push_back(rand() % 100);
 	}
 	//list.print();
 	cout << "List ready" << endl;
@@ -196,4 +200,11 @@ int main()
 	}
 	list2.print();
 #endif
+*/
+	int arr[] = { 3, 5, 8, 13, 21 };
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
 }
