@@ -35,6 +35,15 @@ public:
 		this->Head = nullptr;
 		cout << "ListConstructor:\t" << this << endl;
 	}
+	// Copy Constructor
+	ForwardList(const ForwardList& other) : ForwardList()
+	{
+		for (Element* temp = other.Head; temp; temp = temp->pNext)
+		{
+			push_back(temp->Data);
+		}
+		cout << "CopyConstructor:\t" << this << endl;
+	}
 	~ForwardList()
 	{
 		/*Element* temp = Head;
@@ -161,16 +170,17 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "");
-/*
 	int n;
 	cout << "Введите размер списка: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
 	{
 		list.push_front(rand() % 100);
-		//list.push_back(rand() % 100);
 	}
-	//list.print();
+	list.print();
+	ForwardList list2(list);
+	list2.print();
+/*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
 	list.pop_front();
@@ -201,10 +211,5 @@ int main()
 	list2.print();
 #endif
 */
-	int arr[] = { 3, 5, 8, 13, 21 };
-	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
-	{
-		cout << arr[i] << " ";
-	}
-	cout << endl;
+	
 }
