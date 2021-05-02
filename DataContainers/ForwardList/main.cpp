@@ -2,6 +2,7 @@
 using std::cin;
 using std::cout;
 using std::endl;
+using std::ostream;
 
 class Element
 {
@@ -218,6 +219,7 @@ public:
 		cout << "Общее количество элементов: " << Element::count << endl;
 	}
 };
+// CONCATENATION
 
 ForwardList operator + (ForwardList& left, ForwardList& right)
 {
@@ -231,6 +233,15 @@ ForwardList operator + (ForwardList& left, ForwardList& right)
 		result.push_back(temp->get_data());
 	}
 	return result;
+}
+// OSTREAM
+ostream& operator << (ostream& os, ForwardList& obj)
+{
+	for (Element* temp = obj.get_head(); temp; temp = temp->get_pnext())
+	{
+		os << temp->get_data() << " ";
+	}
+	return os;
 }
 
 int main()
@@ -252,6 +263,7 @@ int main()
 	list2.print();
 	ForwardList list3 = list1 + list2;
 	list3.print();
+	cout << list3 << endl;
 /*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
