@@ -47,9 +47,9 @@ public:
 	// Move Constructor
 	ForwardList(ForwardList&& other)
 	{
+		this->~ForwardList();
 		this->size = other.size;
 		this->Head = other.Head;
-		other.~ForwardList();
 		other.Head = nullptr;
 		cout << "MoveConstructor:\t" << this << endl;
 	}
@@ -75,6 +75,14 @@ public:
 			push_back(temp->Data);
 		}
 		cout << "CopyAssignment:\t" << this << endl;
+	}
+	ForwardList& operator = (ForwardList&& other)
+	{
+		this->~ForwardList();
+		this->size = other.size;
+		this->Head = other.Head;
+		other.Head = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
 	}
 	// Adding elements
 	void push_front(int Data)
@@ -198,8 +206,14 @@ int main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
-	ForwardList list2 = list;
+	ForwardList list2;
+	for (int i = 0; i < n; i++)
+	{
+		list2.push_front(rand() % 50);
+	}
 	list2.print();
+	list = list2;
+	list.print();
 /*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
