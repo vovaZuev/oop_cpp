@@ -9,6 +9,18 @@ class Element
 	Element* pNext; // указатель на следующий элемент
 	static int count;
 public:
+	const int get_data() const
+	{
+		return Data;
+	}
+	const Element* get_pnext() const
+	{
+		return pNext;
+	}
+	Element* get_pnext()
+	{
+		return pNext;
+	}
 	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
 	{
 		count++;
@@ -29,6 +41,18 @@ class ForwardList
 	unsigned int size;
 	Element* Head; // указатель на начальный элемент списка
 public:
+	const unsigned int get_size() const
+	{
+		return size;
+	}
+	const Element* get_head() const
+	{
+		return Head;
+	}
+	Element* get_head()
+	{
+		return Head;
+	}
 	ForwardList()
 	{
 		this->size = 0;
@@ -195,25 +219,39 @@ public:
 	}
 };
 
+ForwardList operator + (ForwardList& left, ForwardList& right)
+{
+	ForwardList result;
+	for (Element* temp = left.get_head(); temp; temp = temp->get_pnext())
+	{
+		result.push_back(temp->get_data());
+	}
+	for (Element* temp = right.get_head(); temp; temp = temp->get_pnext())
+	{
+		result.push_back(temp->get_data());
+	}
+	return result;
+}
+
 int main()
 {
 	setlocale(LC_ALL, "");
 	int n;
 	cout << "Введите размер списка: "; cin >> n;
-	ForwardList list;
+	ForwardList list1;
 	for (int i = 0; i < n; i++)
 	{
-		list.push_front(rand() % 100);
+		list1.push_front(rand() % 100);
 	}
-	list.print();
+	list1.print();
 	ForwardList list2;
 	for (int i = 0; i < n; i++)
 	{
 		list2.push_front(rand() % 50);
 	}
 	list2.print();
-	list = list2;
-	list.print();
+	ForwardList list3 = list1 + list2;
+	list3.print();
 /*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
