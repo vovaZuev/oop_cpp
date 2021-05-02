@@ -44,6 +44,15 @@ public:
 		}
 		cout << "CopyConstructor:\t" << this << endl;
 	}
+	// Move Constructor
+	ForwardList(ForwardList&& other)
+	{
+		this->size = other.size;
+		this->Head = other.Head;
+		other.~ForwardList();
+		other.Head = nullptr;
+		cout << "MoveConstructor:\t" << this << endl;
+	}
 	~ForwardList()
 	{
 		/*Element* temp = Head;
@@ -55,6 +64,17 @@ public:
 		}*/
 		while (Head) pop_front();
 		cout << "ListDestructor:\t" << this << endl;
+	}
+	// OPERATORS
+	ForwardList& operator = (const ForwardList& other)
+	{
+		if (this == &other) return *this;
+		this->~ForwardList();
+		for (Element* temp = other.Head; temp; temp = temp->pNext)
+		{
+			push_back(temp->Data);
+		}
+		cout << "CopyAssignment:\t" << this << endl;
 	}
 	// Adding elements
 	void push_front(int Data)
@@ -178,7 +198,7 @@ int main()
 		list.push_front(rand() % 100);
 	}
 	list.print();
-	ForwardList list2(list);
+	ForwardList list2 = list;
 	list2.print();
 /*
 	cout << "List ready" << endl;
