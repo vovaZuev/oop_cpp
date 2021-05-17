@@ -50,15 +50,22 @@ public:
 	{
 		return Head;
 	}
-	Element* get_head()
-	{
-		return Head;
-	}
+	// CONSTRUCTORS
 	ForwardList()
 	{
 		this->size = 0;
 		this->Head = nullptr;
 		cout << "ListConstructor:\t" << this << endl;
+	}
+	// Initializer list constructor
+	ForwardList(const std::initializer_list<int>il) : ForwardList()
+	{
+		cout << typeid(il.begin()).name() << endl;
+		for (const int* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
+		cout << "ILConstructor:\t" << this << endl;
 	}
 	// Copy Constructor
 	ForwardList(const ForwardList& other) : ForwardList()
@@ -221,14 +228,10 @@ public:
 };
 // CONCATENATION
 
-ForwardList operator + (ForwardList& left, ForwardList& right)
+ForwardList operator + (const ForwardList& left, const ForwardList& right)
 {
-	ForwardList result;
-	for (Element* temp = left.get_head(); temp; temp = temp->get_pnext())
-	{
-		result.push_back(temp->get_data());
-	}
-	for (Element* temp = right.get_head(); temp; temp = temp->get_pnext())
+	ForwardList result = left;
+	for (const Element* temp = right.get_head(); temp; temp = temp->get_pnext())
 	{
 		result.push_back(temp->get_data());
 	}
@@ -237,17 +240,19 @@ ForwardList operator + (ForwardList& left, ForwardList& right)
 // OSTREAM
 ostream& operator << (ostream& os, ForwardList& obj)
 {
-	for (Element* temp = obj.get_head(); temp; temp = temp->get_pnext())
+	for (const Element* temp = obj.get_head(); temp; temp = temp->get_pnext())
 	{
 		os << temp->get_data() << " ";
 	}
 	return os;
 }
 
+#define delim "-----------------------------------------------------"
+
 int main()
 {
 	setlocale(LC_ALL, "");
-	int n;
+	/*int n;
 	cout << "Введите размер списка: "; cin >> n;
 	ForwardList list1;
 	for (int i = 0; i < n; i++)
@@ -255,15 +260,21 @@ int main()
 		list1.push_front(rand() % 100);
 	}
 	list1.print();
+	cout << delim << endl;
 	ForwardList list2;
 	for (int i = 0; i < n; i++)
 	{
 		list2.push_front(rand() % 50);
 	}
 	list2.print();
+	cout << delim << endl;
 	ForwardList list3 = list1 + list2;
 	list3.print();
-	cout << list3 << endl;
+	cout << delim << endl;
+	cout << list3 << endl;*/
+
+	ForwardList list = {3, 5, 8, 13, 21};
+	list.print();
 /*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
