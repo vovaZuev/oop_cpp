@@ -33,10 +33,10 @@ public:
 		//cout << "ElementDestructor:\t" << this << endl;
 	}
 	// Operators
-	Element* operator ++()
+	/*Element* operator ++()
 	{
 		return pNext;
-	}
+	}*/
 	friend class ForwardList;
 };
 
@@ -65,7 +65,7 @@ public:
 	// Initializer list constructor
 	ForwardList(const std::initializer_list<int>il) : ForwardList()
 	{
-		cout << typeid(il.begin()).name() << endl;
+		//cout << typeid(il.begin()).name() << endl;
 		for (const int* it = il.begin(); it != il.end(); it++)
 		{
 			push_back(*it);
@@ -123,19 +123,13 @@ public:
 	}
 	int& operator [] (int index)
 	{
-		if (index < 0 || index >= Element::count)
+		if (index < 0 || index >= Element::count) throw std::exception("Задан неверный индекс!");
+		Element* temp = Head;
+		for (int i = 0; i < index; i++)
 		{
-			cout << "Задан неверный индекс!" << endl;
-			exit(EXIT_FAILURE);
+			temp = temp->pNext;
 		}
-		int i = 0;
-		for (Element* temp = Head; temp; temp = temp->pNext)
-		{
-			if (i == index)
-				return temp->Data;
-			i++;
-		}
-		exit(EXIT_FAILURE);
+		return temp->Data;
 	}
 	// Adding elements
 	void push_front(int Data)
@@ -238,7 +232,7 @@ public:
 			temp = temp->pNext; // переход на следующий элемент
 		}
 		*/
-		for(Element* temp = Head; temp; ++temp)
+		for(Element* temp = Head; temp; temp = temp->pNext)
 			cout << temp << "\t" << temp->Data << "\t" << temp->pNext << endl;
 		cout << "В списке " << size << " элементов." << endl;
 		cout << "Общее количество элементов: " << Element::count << endl;
@@ -324,10 +318,16 @@ int main()
 	list2.print();
 #endif
 */
-	/*int index{};
+	int index{};
 	cout << "Введите индекс элемента списка для вывода: "; cin >> index;
-	if(list[index] != -1)
+	try
+	{
 		cout << index << "-й элемент списка равен " << list[index] << endl;
-	list[2] = 99;
-	cout << list << endl;*/
+		list[2] = 99;
+		cout << list << endl;
+	}
+	catch (std::exception e)
+	{
+		std::cerr << e.what() << endl;
+	}
 }
