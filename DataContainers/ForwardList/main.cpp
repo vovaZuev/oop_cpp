@@ -38,9 +38,60 @@ public:
 		return pNext;
 	}*/
 	friend class ForwardList;
+	friend class Iterator;
 };
 
 int Element::count = 0; // инициализация статической переменной
+
+class Iterator
+{
+	Element* Temp;
+public:
+	Iterator(Element* Temp = nullptr) : Temp(Temp)
+	{
+		cout << "IConstructor:\t" << this << endl;
+	}
+	~Iterator()
+	{
+		cout << "IDestructor:\t" << this << endl;
+	}
+	// Operators
+	Iterator& operator++()
+	{
+		Temp = Temp->pNext;
+		return *this;
+	}
+	Iterator operator++(int)
+	{
+		Iterator old = *this;
+		Temp = Temp->pNext;
+		return old;
+	}
+	bool operator == (const Iterator& other) const
+	{
+		return this->Temp == other.Temp;
+	}
+	bool operator != (const Iterator& other) const
+	{
+		return this->Temp != other.Temp;
+	}
+	const Element* operator -> () const
+	{
+		return Temp;
+	}
+	Element* operator -> ()
+	{
+		return Temp;
+	}
+	const int& operator*() const
+	{
+		return Temp->Data;
+	}
+	int& operator*()
+	{
+		return Temp->Data;
+	}
+};
 
 class ForwardList
 {
@@ -232,8 +283,13 @@ public:
 			temp = temp->pNext; // переход на следующий элемент
 		}
 		*/
-		for(Element* temp = Head; temp; temp = temp->pNext)
-			cout << temp << "\t" << temp->Data << "\t" << temp->pNext << endl;
+		/*for(Element* temp = Head; temp; temp = temp->pNext)*/
+		for (Iterator temp = Head; temp != nullptr; ++temp)
+		{
+			//cout /*<< temp*/ << "\t" << temp->Data << "\t" << temp->pNext << endl;
+			cout << *temp << '\t';
+			
+		}
 		cout << "В списке " << size << " элементов." << endl;
 		cout << "Общее количество элементов: " << Element::count << endl;
 	}
@@ -318,7 +374,7 @@ int main()
 	list2.print();
 #endif
 */
-	int index{};
+	/*int index{};
 	cout << "Введите индекс элемента списка для вывода: "; cin >> index;
 	try
 	{
@@ -329,5 +385,5 @@ int main()
 	catch (std::exception e)
 	{
 		std::cerr << e.what() << endl;
-	}
+	}*/
 }
