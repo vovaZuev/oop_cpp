@@ -32,6 +32,11 @@ public:
 		count--;
 		//cout << "ElementDestructor:\t" << this << endl;
 	}
+	// Operators
+	Element* operator ++()
+	{
+		return pNext;
+	}
 	friend class ForwardList;
 };
 
@@ -116,12 +121,25 @@ public:
 		other.Head = nullptr;
 		cout << "MoveAssignment:\t" << this << endl;
 	}
+	int& operator [] (int index)
+	{
+		if (index < 0 || index >= Element::count)
+		{
+			cout << "Задан неверный индекс!" << endl;
+			exit(EXIT_FAILURE);
+		}
+		int i = 0;
+		for (Element* temp = Head; temp; temp = temp->pNext)
+		{
+			if (i == index)
+				return temp->Data;
+			i++;
+		}
+		exit(EXIT_FAILURE);
+	}
 	// Adding elements
 	void push_front(int Data)
 	{
-		/*Element* New = new Element(Data);
-		New->pNext = Head;
-		Head = New;*/
 		Head = new Element(Data, Head);
 		size++;
 	}
@@ -220,7 +238,7 @@ public:
 			temp = temp->pNext; // переход на следующий элемент
 		}
 		*/
-		for(Element* temp = Head; temp; temp=temp->pNext)
+		for(Element* temp = Head; temp; ++temp)
 			cout << temp << "\t" << temp->Data << "\t" << temp->pNext << endl;
 		cout << "В списке " << size << " элементов." << endl;
 		cout << "Общее количество элементов: " << Element::count << endl;
@@ -306,5 +324,10 @@ int main()
 	list2.print();
 #endif
 */
-	
+	/*int index{};
+	cout << "Введите индекс элемента списка для вывода: "; cin >> index;
+	if(list[index] != -1)
+		cout << index << "-й элемент списка равен " << list[index] << endl;
+	list[2] = 99;
+	cout << list << endl;*/
 }
