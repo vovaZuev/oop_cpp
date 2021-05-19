@@ -32,11 +32,6 @@ public:
 		count--;
 		//cout << "ElementDestructor:\t" << this << endl;
 	}
-	// Operators
-	/*Element* operator ++()
-	{
-		return pNext;
-	}*/
 	friend class ForwardList;
 	friend class Iterator;
 };
@@ -105,6 +100,14 @@ public:
 	const Element* get_head() const
 	{
 		return Head;
+	}
+	Iterator begin()
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
 	}
 	// CONSTRUCTORS
 	ForwardList()
@@ -287,9 +290,10 @@ public:
 		for (Iterator temp = Head; temp != nullptr; ++temp)
 		{
 			//cout /*<< temp*/ << "\t" << temp->Data << "\t" << temp->pNext << endl;
-			cout << *temp << '\t';
+			cout << *temp << '\t' << endl;
 			
 		}
+		cout << endl;
 		cout << "В списке " << size << " элементов." << endl;
 		cout << "Общее количество элементов: " << Element::count << endl;
 	}
@@ -342,7 +346,11 @@ int main()
 	cout << list3 << endl;*/
 
 	ForwardList list = {3, 5, 8, 13, 21};
-	list.print();
+	//list.print();
+	// Range based for
+	for (int i : list)
+		cout << i << '\t';
+	cout << endl;
 /*
 	cout << "List ready" << endl;
 #ifdef TEST_REMOVE
@@ -386,4 +394,5 @@ int main()
 	{
 		std::cerr << e.what() << endl;
 	}*/
+
 }
