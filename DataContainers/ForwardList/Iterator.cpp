@@ -1,46 +1,46 @@
 #include "Iterator.h"
 
-Iterator(Element* Temp = nullptr) : Temp(Temp)
+Iterator::Iterator(Element* Temp) : Temp(Temp)
 {
 	cout << "IConstructor:\t" << this << endl;
 }
-~Iterator()
+Iterator::~Iterator()
 {
 	cout << "IDestructor:\t" << this << endl;
 }
 // Operators
-Iterator& operator++()
+Iterator& Iterator::operator++()
 {
 	Temp = Temp->pNext;
 	return *this;
 }
-Iterator operator++(int)
+Iterator Iterator::operator++(int)
 {
 	Iterator old = *this;
 	Temp = Temp->pNext;
 	return old;
 }
-bool operator == (const Iterator& other) const
+bool Iterator::operator == (const Iterator& other) const
 {
 	return this->Temp == other.Temp;
 }
-bool operator != (const Iterator& other) const
+bool Iterator::operator != (const Iterator& other) const
 {
 	return this->Temp != other.Temp;
 }
-const Element* operator -> () const
+const Element* Iterator::operator -> () const
 {
 	return Temp;
 }
-Element* operator -> ()
+Element* Iterator::operator -> ()
 {
 	return Temp;
 }
-const int& operator*() const
+const int& Iterator::operator*() const
 {
 	return Temp->Data;
 }
-int& operator*()
+int& Iterator::operator*()
 {
 	return Temp->Data;
 }

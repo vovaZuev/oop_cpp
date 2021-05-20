@@ -14,7 +14,7 @@ public:
 	const int get_data() const;
 	const Element* get_pnext() const;
 	Element* get_pnext();
-	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext);
+	Element(int Data, Element* pNext = nullptr);
 	~Element();
 	friend class ForwardList;
 	friend class Iterator;

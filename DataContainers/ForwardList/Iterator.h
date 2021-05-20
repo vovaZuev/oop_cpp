@@ -1,9 +1,16 @@
 #pragma once
+#include "Element.h"
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+using std::ostream;
+
 class Iterator
 {
 	Element* Temp;
 public:
-	Iterator(Element* Temp = nullptr) : Temp(Temp);
+	Iterator(Element* Temp = nullptr);
 	~Iterator();
 	// Operators
 	Iterator& operator++();
