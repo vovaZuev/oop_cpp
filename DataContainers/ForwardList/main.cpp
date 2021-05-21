@@ -7,44 +7,47 @@ using std::ostream;
 
 template <typename T> class Iterator;
 template <typename T> class ForwardList;
-template <typename T>
-class Element
+template <typename T> class Element
 {
 	T Data; // значение эл-та
 	Element* pNext; // указатель на следующий элемент
 	static int count;
 public:
-	const T get_data() const
-	{
-		return Data;
-	}
-	const Element* get_pnext() const
-	{
-		return pNext;
-	}
-	Element* get_pnext()
-	{
-		return pNext;
-	}
-	Element(T Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
-	{
-		count++;
-		//cout << "ElementConstructor:\t" << this << endl;
-	}
-	~Element()
-	{
-		count--;
-		//cout << "ElementDestructor:\t" << this << endl;
-	}
+	const T get_data() const;
+	const Element* get_pnext() const;
+	Element* get_pnext();
+	Element(T Data, Element* pNext = nullptr);
+	~Element();
 	friend class ForwardList<T>;
 	friend class Iterator<T>;
 };
 
-template <typename T>
-int Element<T>::count = 0; // инициализация статической переменной
+template <typename T> int Element<T>::count = 0; // инициализация статической переменной
 
-template <typename T>
-class Iterator
+template <typename T> const T Element<T>::get_data() const
+{
+	return Data;
+}
+template <typename T> const Element<T>* Element<T>::get_pnext() const
+{
+	return pNext;
+}
+template <typename T> Element<T>* Element<T>::get_pnext()
+{
+	return pNext;
+}
+template <typename T> Element<T>::Element(T Data, Element* pNext) : Data(Data), pNext(pNext)
+{
+	count++;
+	//cout << "ElementConstructor:\t" << this << endl;
+}
+template <typename T> Element<T>::~Element()
+{
+	count--;
+	//cout << "ElementDestructor:\t" << this << endl;
+}
+
+template <typename T> class Iterator
 {
 	Element<T>* Temp;
 public:
@@ -94,8 +97,7 @@ public:
 	}
 };
 
-template <typename T>
-class ForwardList
+template <typename T> class ForwardList
 {
 	unsigned int size;
 	Element<T>* Head; // указатель на начальный элемент списка
@@ -309,8 +311,7 @@ public:
 };
 // CONCATENATION
 
-template <typename T>
-ForwardList<T> operator + (const ForwardList<T>& left, const ForwardList<T>& right)
+template <typename T> ForwardList<T> operator + (const ForwardList<T>& left, const ForwardList<T>& right)
 {
 	ForwardList<T> result = left;
 	for (const Element<T>* temp = right.get_head(); temp; temp = temp->get_pnext())
@@ -320,8 +321,7 @@ ForwardList<T> operator + (const ForwardList<T>& left, const ForwardList<T>& rig
 	return result;
 }
 // OSTREAM
-template <typename T>
-ostream& operator << (ostream& os, ForwardList<T>& obj)
+template <typename T> ostream& operator << (ostream& os, ForwardList<T>& obj)
 {
 	for (const Element<T>* temp = obj.get_head(); temp; temp = temp->get_pnext())
 	{
