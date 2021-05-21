@@ -84,11 +84,11 @@ template <typename T> Iterator<T> Iterator<T>::operator++(int)
 	Temp = Temp->pNext;
 	return old;
 }
-template <typename T> bool Iterator<T>::operator == (const Iterator& other) const
+template <typename T> bool Iterator<T>::operator == (const Iterator<T>& other) const
 {
 	return this->Temp == other.Temp;
 }
-template <typename T> bool Iterator<T>::operator != (const Iterator& other) const
+template <typename T> bool Iterator<T>::operator != (const Iterator<T>& other) const
 {
 	return this->Temp != other.Temp;
 }
