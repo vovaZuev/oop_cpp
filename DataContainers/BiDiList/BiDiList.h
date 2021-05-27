@@ -14,4 +14,22 @@ public:
 	const int get_size() const;
 	void set_head(Element* head);
 	void set_tail(Element* tail);
+	// **************************** Constructors **************************************** //
+	// Default Constructor
+	BiDiList();
+	// Copy Constructor
+	BiDiList(const BiDiList& other);
+	// Move Constructor
+	BiDiList(const BiDiList&& other);
+	// Destructor
+	~BiDiList();
+	// ******************************* Methods ****************************************** //
+	// Remove elements
+	void pop_back();
+	void pop_front();
+	void erase(int index);
+	// Add elements
+	void push_back(int data);
+	void push_front(int data);
+	void insert(int data, int index);
 };
