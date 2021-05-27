@@ -6,12 +6,18 @@ class Element
 	int Data;
 	Element* pPrev;
 	Element* pNext;
+	static int count;
 public:
-	// Getters & Setters
+	// ************************* Getters & Setters ************************************* //
 	const int get_data() const;
 	const Element* get_pPrev() const;
 	const Element* get_pNext() const;
-	int set_data(int data);
-	Element* set_pPrev(Element* pPrev);
-	Element* set_pNext(Element* pNext);
+	void set_data(int data);
+	void set_pPrev(Element* pPrev);
+	void set_pNext(Element* pNext);
+	// **************************** Constructors **************************************** //
+	// Data Constructor
+	Element(const int data, Element* pPrev = nullptr, Element* pNext = nullptr);
+	// Destructor
+	~Element();
 };

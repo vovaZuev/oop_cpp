@@ -1,6 +1,6 @@
 #include "BiDiList.h"
 
-// Getters & Setters
+// ************************* Getters & Setters ************************************* //
 const Element* BiDiList::get_head() const
 {
 	return Head;
@@ -13,11 +13,11 @@ const int BiDiList::get_size() const
 {
 	return size;
 }
-Element* BiDiList::set_head(Element* head)
+void BiDiList::set_head(Element* head)
 {
 	this->Head = head;
 }
-Element* BiDiList::set_tail(Element* tail)
+void BiDiList::set_tail(Element* tail)
 {
 	this->Tail = tail;
 }

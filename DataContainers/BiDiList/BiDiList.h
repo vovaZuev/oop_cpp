@@ -8,10 +8,10 @@ class BiDiList
 	Element* Tail;
 	int size;
 public:
-	// Getters & Setters
+	// ************************* Getters & Setters ************************************* //
 	const Element* get_head() const;
 	const Element* get_tail() const;
 	const int get_size() const;
-	Element* set_head(Element* head);
-	Element* set_tail(Element* tail);
+	void set_head(Element* head);
+	void set_tail(Element* tail);
 };
