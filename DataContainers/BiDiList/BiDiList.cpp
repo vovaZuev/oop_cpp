@@ -72,7 +72,7 @@ void BiDiList::push_back(int data)
 void BiDiList::push_front(int data)
 {
 	Element* New = new Element(data, nullptr, Head);
-	Head->pPrev = New;
+	//Head->pPrev = New;
 	Head = New;
 	if (!size)
 		Tail = Head;

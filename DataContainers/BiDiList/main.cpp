@@ -13,7 +13,7 @@ int main()
 		list->push_front(rand() % 100);
 	}
 	list->print();
-	/*std::cout << list->get_size() << std::endl;
+	std::cout << list->get_size() << std::endl;
 	list->push_front(99);
 	std::cout << list->get_size() << std::endl;
 	list->print();
@@ -23,7 +23,7 @@ int main()
 	list->insert(88, 2);
 	std::cout << list->get_size() << std::endl;
 	list->print();
-	list->insert(55, 5);
+	list->insert(55, 4);
 	std::cout << list->get_size() << std::endl;
-	list->print();*/
+	list->print();
 }
