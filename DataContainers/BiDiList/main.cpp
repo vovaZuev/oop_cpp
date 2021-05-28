@@ -23,7 +23,7 @@ int main()
 	list->insert(88, 2);
 	std::cout << list->get_size() << std::endl;
 	list->print();
-	list->insert(55, 4);
+	list->insert(55, 5);
 	std::cout << list->get_size() << std::endl;
 	list->print();
 }

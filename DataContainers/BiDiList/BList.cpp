@@ -62,18 +62,19 @@ void BList::erase(int index)
 // Add elements
 void BList::push_back(int data)
 {
+	if (Tail == nullptr)
+	{
+		push_front(data);
+		return;
+	}
 	Element* New = new Element(data, Tail, nullptr);
 	Tail->pNext = New;
 	Tail = New;
-	if (!size)
-		Head = Tail;
 	++size;
 }
 void BList::push_front(int data)
 {
-	Element* New = new Element(data, nullptr, Head);
-	//Head->pPrev = New;
-	Head = New;
+	Head = new Element(data, nullptr, Head);
 	if (!size)
 		Tail = Head;
 	++size;
@@ -82,7 +83,10 @@ void BList::insert(int data, int index)
 {
 	if (index < 0 || index >= size) return;
 	if (index == 0)
+	{
 		push_front(data);
+		return;
+	}
 	if (index <= size / 2)
 	{
 		Element* temp = Head;
@@ -99,18 +103,15 @@ void BList::insert(int data, int index)
 	else
 	{
 		Element* temp = Tail;
-		std::cout << temp->Data << std::endl;
 		Element* New = new Element(data);
 		for (int i{}; i < size - index; ++i)
 		{
 			temp = temp->pPrev;
 		}
-		std::cout << temp->Data << std::endl;
-		/*std::cout << temp->Data << std::endl;
 		New->pNext = temp->pNext;
 		New->pPrev = temp;
 		temp->pNext->pPrev = New;
-		temp->pNext = New;*/
+		temp->pNext = New;
 	}
 	++size;
 }
