@@ -24,6 +24,7 @@
     <ProjectGuid>{f34a58f5-5c82-4649-8946-4bb4f2d38228}</ProjectGuid>
     <RootNamespace>BiDiList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BList</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
