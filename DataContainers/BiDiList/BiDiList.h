@@ -32,4 +32,5 @@ public:
 	void push_back(int data);
 	void push_front(int data);
 	void insert(int data, int index);
+	void print();
 };

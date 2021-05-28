@@ -20,4 +20,6 @@ public:
 	Element(const int data, Element* pPrev = nullptr, Element* pNext = nullptr);
 	// Destructor
 	~Element();
+
+	friend class BiDiList;
 };
