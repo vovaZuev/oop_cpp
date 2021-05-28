@@ -1,5 +1,5 @@
 ﻿#include "Element.h"
-#include "BiDiList.h"
+#include "BList.h"
 #include <iostream>
 
 int Element::count{};
@@ -7,7 +7,7 @@ int Element::count{};
 int main()
 {
 	int n = 5;
-	BiDiList* list = new BiDiList();
+	BList* list = new BList();
 	for (int i{}; i < n; ++i)
 	{
 		list->push_front(rand() % 100);

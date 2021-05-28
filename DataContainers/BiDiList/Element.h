@@ -21,5 +21,5 @@ public:
 	// Destructor
 	~Element();
 
-	friend class BiDiList;
+	friend class BList;
 };

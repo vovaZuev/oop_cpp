@@ -1,29 +1,29 @@
-#include "BiDiList.h"
+#include "BList.h"
 
 // ************************* Getters & Setters ************************************* //
-const Element* BiDiList::get_head() const
+const Element* BList::get_head() const
 {
 	return Head;
 }
-const Element* BiDiList::get_tail() const
+const Element* BList::get_tail() const
 {
 	return Tail;
 }
-const int BiDiList::get_size() const
+const int BList::get_size() const
 {
 	return size;
 }
-void BiDiList::set_head(Element* head)
+void BList::set_head(Element* head)
 {
 	this->Head = head;
 }
-void BiDiList::set_tail(Element* tail)
+void BList::set_tail(Element* tail)
 {
 	this->Tail = tail;
 }
 // **************************** Constructors **************************************** //
 // Default Constructor
-BiDiList::BiDiList()
+BList::BList()
 {
 	this->Head = nullptr;
 	this->Tail = nullptr;
@@ -31,36 +31,36 @@ BiDiList::BiDiList()
 	std::cout << "LConstructor:\t" << this << std::endl;
 }
 // Copy Constructor
-BiDiList::BiDiList(const BiDiList& other)
+BList::BList(const BList& other)
 {
 
 }
 // Move Constructor
-BiDiList::BiDiList(const BiDiList&& other)
+BList::BList(const BList&& other)
 {
 
 }
 // Destructor
-BiDiList::~BiDiList()
+BList::~BList()
 {
 	std::cout << "LDestructor:\t" << this << std::endl;
 }
 // ******************************* Methods ****************************************** //
 	// Remove elements
-void BiDiList::pop_back()
+void BList::pop_back()
 {
 
 }
-void BiDiList::pop_front()
+void BList::pop_front()
 {
 
 }
-void BiDiList::erase(int index)
+void BList::erase(int index)
 {
 
 }
 // Add elements
-void BiDiList::push_back(int data)
+void BList::push_back(int data)
 {
 	Element* New = new Element(data, Tail, nullptr);
 	Tail->pNext = New;
@@ -69,7 +69,7 @@ void BiDiList::push_back(int data)
 		Head = Tail;
 	++size;
 }
-void BiDiList::push_front(int data)
+void BList::push_front(int data)
 {
 	Element* New = new Element(data, nullptr, Head);
 	//Head->pPrev = New;
@@ -78,7 +78,7 @@ void BiDiList::push_front(int data)
 		Tail = Head;
 	++size;
 }
-void BiDiList::insert(int data, int index)
+void BList::insert(int data, int index)
 {
 	if (index < 0 || index >= size) return;
 	if (index == 0)
@@ -114,7 +114,7 @@ void BiDiList::insert(int data, int index)
 	}
 	++size;
 }
-void BiDiList::print()
+void BList::print()
 {
 	for (Element* temp = Head; temp; temp = temp->pNext)
 	{

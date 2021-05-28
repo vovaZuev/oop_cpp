@@ -2,7 +2,7 @@
 #include "Element.h"
 #include <iostream>
 
-class BiDiList
+class BList
 {
 	Element* Head;
 	Element* Tail;
@@ -16,13 +16,13 @@ public:
 	void set_tail(Element* tail);
 	// **************************** Constructors **************************************** //
 	// Default Constructor
-	BiDiList();
+	BList();
 	// Copy Constructor
-	BiDiList(const BiDiList& other);
+	BList(const BList& other);
 	// Move Constructor
-	BiDiList(const BiDiList&& other);
+	BList(const BList&& other);
 	// Destructor
-	~BiDiList();
+	~BList();
 	// ******************************* Methods ****************************************** //
 	// Remove elements
 	void pop_back();

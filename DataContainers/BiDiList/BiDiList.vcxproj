@@ -139,12 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BiDiList.cpp" />
+    <ClCompile Include="BList.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BiDiList.h" />
+    <ClInclude Include="BList.h" />
     <ClInclude Include="Element.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
