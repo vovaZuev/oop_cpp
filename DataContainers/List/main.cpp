@@ -35,6 +35,15 @@ public:
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
+	// Defined Size Constructor
+	List(int size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			push_front(0);
+		}
+		cout << "SConstructor:\t" << this << endl;
+	}
 	~List()
 	{
 		while (Tail) pop_back();
@@ -199,7 +208,9 @@ public:
 
 int main()
 {
-	List list;
+	List list = List(5);
+	list.print();
+	/*List list;
 	int n;
 	cout << "Enter size of the list: "; cin >> n;
 	for (int i = 0; i < n; i++)
@@ -214,7 +225,7 @@ int main()
 	list.print();
 	cout << delim;
 	list.print_reverse();
-	/*cout << delim;
+	cout << delim;
 	list.erase(5);
 	list.print();
 	cout << delim;
