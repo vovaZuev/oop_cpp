@@ -29,6 +29,7 @@ class List
 	Element* Tail;
 	unsigned int size;
 public:
+	// ******************************* CONSTRUCTORS ******************************************
 	List()
 	{
 		Head = Tail = nullptr;
@@ -44,12 +45,76 @@ public:
 		}
 		cout << "SConstructor:\t" << this << endl;
 	}
+	// Copy Constructor
+	List(const List& other) : List()
+	{
+		for (Element* temp = other.Head; temp; temp = temp->pNext)
+		{
+			push_back(temp->data);
+		}
+		cout << "CopyConstructor:\t" << this << endl;
+	}
+	// Move Constructor
+	List(List&& other)
+	{
+		this->~List();
+		this->size = other.size;
+		this->Head = other.Head;
+		this->Tail = other.Tail;
+		other.Head = other.Tail = nullptr;
+		cout << "MoveConstructor:\t" << this << endl;
+	}
 	~List()
 	{
 		while (Tail) pop_back();
 		cout << "LDestructor:\t" << this << endl;
 	}
-	// *************** ADD ELEMENTS ******************************************
+	// ******************************* OPERATORS ******************************************
+	// Copy Assignment
+	List& operator = (const List& other)
+	{
+		if (this == &other) return *this;
+		this->~List();
+		for (Element* temp = other.Head; temp; temp = temp->pNext)
+		{
+			push_back(temp->data);
+		}
+		cout << "CopyAssignment:\t" << this << endl;
+	}
+	// Move Assignment
+	List& operator = (List&& other)
+	{
+		this->~List();
+		this->size = other.size;
+		this->Head = other.Head;
+		this->Tail = other.Tail;
+		other.Head = other.Tail = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
+	}
+	// Subscript Operator
+	int& operator [] (int index)
+	{
+		if (index < 0 || index >= size) throw std::exception("Wrong index!");
+		Element* temp;
+		if (index < size / 2)
+		{
+			temp = Head;
+			for (int i = 0; i < index; i++)
+			{
+				temp = temp->pNext;
+			}
+		}
+		else
+		{
+			temp = Tail;
+			for (int i = 0; i < size - index - 1; i++)
+			{
+				temp = temp->pPrev;
+			}
+		}
+		return temp->data;
+	}
+	// ****************************** ADD ELEMENTS ****************************************
 	void push_front(int data)
 	{
 		if (Head == nullptr && Tail == nullptr)
@@ -58,15 +123,12 @@ public:
 			size++;
 			return;
 		}
-		else
-		{
-			/*Element* New = new Element(data);
-			New->pNext = Head;
-			Head->pPrev = New;
-			Head = New;*/
-			Head = Head->pPrev = new Element(data, Head);
-			size++;
-		}
+		/*Element* New = new Element(data);
+		New->pNext = Head;
+		Head->pPrev = New;
+		Head = New;*/
+		Head = Head->pPrev = new Element(data, Head);
+		size++;
 	}
 	void push_back(int data)
 	{
@@ -76,15 +138,12 @@ public:
 			size++;
 			return;
 		}
-		else
-		{
-			/*Element* New = new Element(data);
-			New->pPrev = Tail;
-			Tail->pNext = New;
-			Tail = New;*/
-			Tail = Tail->pNext = new Element(data, nullptr, Tail);
-			size++;
-		}
+		/*Element* New = new Element(data);
+		New->pPrev = Tail;
+		Tail->pNext = New;
+		Tail = New;*/
+		Tail = Tail->pNext = new Element(data, nullptr, Tail);
+		size++;
 	}
 	void insert(int data, int index)
 	{
@@ -208,19 +267,33 @@ public:
 
 int main()
 {
-	List list = List(5);
-	list.print();
-	/*List list;
+	List list;
 	int n;
 	cout << "Enter size of the list: "; cin >> n;
 	for (int i = 0; i < n; i++)
 	{
 		list.push_back(rand() % 100);
 	}
+	list[3] = 99;
 	list.print();
 	cout << delim;
 	list.print_reverse();
 	cout << delim;
+	/*List list2;
+	for (int i = 0; i < n; i++)
+	{
+		list2.push_back(rand() % 50);
+	}
+	list2.print();
+	cout << delim;
+	list2.print_reverse();
+	cout << delim;
+	list = list2;
+	list.print();
+	cout << delim;
+	list.print_reverse();
+	cout << delim;
+	cout << list[3] << endl;
 	list.insert(77, 3);
 	list.print();
 	cout << delim;
