@@ -49,11 +49,15 @@ public:
 			size++;
 			return;
 		}
-		Element* New = new Element(data);
-		New->pNext = Head;
-		Head->pPrev = New;
-		Head = New;
-		size++;
+		else
+		{
+			/*Element* New = new Element(data);
+			New->pNext = Head;
+			Head->pPrev = New;
+			Head = New;*/
+			Head = Head->pPrev = new Element(data, Head);
+			size++;
+		}
 	}
 	void push_back(int data)
 	{
@@ -63,11 +67,15 @@ public:
 			size++;
 			return;
 		}
-		Element* New = new Element(data);
-		New->pPrev = Tail;
-		Tail->pNext = New;
-		Tail = New;
-		size++;
+		else
+		{
+			/*Element* New = new Element(data);
+			New->pPrev = Tail;
+			Tail->pNext = New;
+			Tail = New;*/
+			Tail = Tail->pNext = new Element(data, nullptr, Tail);
+			size++;
+		}
 	}
 	void insert(int data, int index)
 	{
@@ -99,11 +107,11 @@ public:
 				temp = temp->pPrev;
 			}
 		}
-		Element* New = new Element(data);
-		New->pPrev = temp->pPrev;
+		temp->pPrev = temp->pPrev->pNext = new Element(data, temp, temp->pPrev);
+		/*New->pPrev = temp->pPrev;
 		New->pNext = temp;
 		temp->pPrev->pNext = New;
-		temp->pPrev = New;
+		temp->pPrev = New;*/
 		size++;
 	}
 	// *************** REMOVE ELEMENTS **********************************
@@ -202,13 +210,13 @@ int main()
 	cout << delim;
 	list.print_reverse();
 	cout << delim;
-	list.insert(77, n);
+	list.insert(77, 3);
 	list.print();
 	cout << delim;
 	list.print_reverse();
-	cout << delim;
+	/*cout << delim;
 	list.erase(5);
 	list.print();
 	cout << delim;
-	list.print_reverse();
+	list.print_reverse();*/
 }
