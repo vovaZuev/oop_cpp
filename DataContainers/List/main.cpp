@@ -24,17 +24,95 @@ class List
 			cout << "EDestructor:\t" << this << endl;
 		}
 		friend class List;
+		friend List operator + (const List& left, const List& right);
 	};
 	Element* Head;
 	Element* Tail;
 	unsigned int size;
 public:
+	class Iterator
+	{
+		Element* temp;
+	public:
+		Iterator(Element* temp = nullptr) : temp(temp)
+		{
+			cout << "ItConstructor:\t" << this << endl;
+		}
+		~Iterator()
+		{
+			cout << "ItDestructor:\t" << this << endl;
+		}
+		// ********************* Operators **********************************
+		Iterator& operator ++ ()
+		{
+			temp = temp->pNext;
+			cout << "PrefixIncrement:\t" << this << endl;
+			return *this;
+		}
+		Iterator& operator ++ (int)
+		{
+			Iterator old = *this;
+			temp = temp->pNext;
+			cout << "PostfixIncrement:\t" << this << endl;
+			return old;
+		}
+		Iterator& operator -- ()
+		{
+			temp = temp->pPrev;
+			return *this;
+		}
+		Iterator& operator -- (int)
+		{
+			Iterator old = *this;
+			temp = temp->pPrev;
+			return old;
+		}
+		bool operator == (const Iterator& other) const
+		{
+			return this->temp == other.temp;
+		}
+		bool operator != (const Iterator& other) const
+		{
+			return this->temp != other.temp;
+		}
+		const int& operator * () const
+		{
+			return temp->data;
+		}
+		int& operator * ()
+		{
+			return temp->data;
+		}
+	};
+	Iterator begin()
+	{
+		return Head;
+	}
+	const Iterator begin() const
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
+	const Iterator end() const
+	{
+		return nullptr;
+	}
 	// ******************************* CONSTRUCTORS ******************************************
 	List()
 	{
 		Head = Tail = nullptr;
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
+	}
+	List(const initializer_list<int>& il) : List()
+	{
+		for (const int* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
 	}
 	// Defined Size Constructor
 	List(int size)
@@ -57,7 +135,6 @@ public:
 	// Move Constructor
 	List(List&& other)
 	{
-		this->~List();
 		this->size = other.size;
 		this->Head = other.Head;
 		this->Tail = other.Tail;
@@ -80,6 +157,7 @@ public:
 			push_back(temp->data);
 		}
 		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
 	}
 	// Move Assignment
 	List& operator = (List&& other)
@@ -90,6 +168,7 @@ public:
 		this->Tail = other.Tail;
 		other.Head = other.Tail = nullptr;
 		cout << "MoveAssignment:\t" << this << endl;
+		return *this;
 	}
 	// Subscript Operator
 	int& operator [] (int index)
@@ -112,6 +191,30 @@ public:
 				temp = temp->pPrev;
 			}
 		}
+		cout << "Non-Const [] operator..." << endl;
+		return temp->data;
+	}
+	const int& operator [] (int index) const
+	{
+		if (index < 0 || index >= size) throw std::exception("Wrong index!");
+		Element* temp;
+		if (index < size / 2)
+		{
+			temp = Head;
+			for (int i = 0; i < index; i++)
+			{
+				temp = temp->pNext;
+			}
+		}
+		else
+		{
+			temp = Tail;
+			for (int i = 0; i < size - index - 1; i++)
+			{
+				temp = temp->pPrev;
+			}
+		}
+		cout << "Const [] operator..." << endl;
 		return temp->data;
 	}
 	// ****************************** ADD ELEMENTS ****************************************
@@ -247,6 +350,7 @@ public:
 		size--;
 	}
 	// *************** METHODS ******************************************
+	
 	void print()
 	{
 		for (Element* temp = Head; temp; temp = temp->pNext)
@@ -263,22 +367,55 @@ public:
 		}
 		cout << "Number of elements in the list: " << size << endl;
 	}
+	friend List operator + (const List& left, const List& right);
 };
+
+List operator + (const List& left, const List& right)
+{
+	List result = left;
+	/*for (List::Iterator it = right.begin(); it != right.end(); it++)
+	{
+		result.push_back(*it);
+	}*/
+	/*for (List::Element* temp = right.Head; temp; temp = temp->pNext)
+	{
+		result.push_back(temp->data);
+	}*/
+	for (int i : right) result.push_back(i);
+	return result;
+}
 
 int main()
 {
-	List list;
-	int n;
+	List list1 = {3, 5, 8, 13, 21};
+	for (int i : list1)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+	cout << delim;
+	for (List::Iterator it = list1.begin(); it != list1.end(); it++)
+	{
+		cout << *it << tab;
+	}
+	cout << endl;
+	//list1.print();
+	/*List list2 = {34, 55, 89};
+	List list3;
+	list3 = list1 + list2;
+	list3.print();*/
+	/*int n;
 	cout << "Enter size of the list: "; cin >> n;
 	for (int i = 0; i < n; i++)
 	{
 		list.push_back(rand() % 100);
 	}
 	list[3] = 99;
+	cout << list[3] << endl;
 	list.print();
 	cout << delim;
 	list.print_reverse();
-	cout << delim;
+	cout << delim;*/
 	/*List list2;
 	for (int i = 0; i < n; i++)
 	{
