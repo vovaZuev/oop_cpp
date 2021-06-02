@@ -16,11 +16,11 @@ class Tree
 			this->data = data;
 			this->pLeft = pLeft;
 			this->pRight = pRight;
-			cout << "EConstructor:\t" << this << endl;
+			//cout << "EConstructor:\t" << this << endl;
 		}
 		~Element()
 		{
-			cout << "EDestructor:\t" << this << endl;
+			//cout << "EDestructor:\t" << this << endl;
 		}
 		friend class Tree;
 	} *Root; // Указатель на корневой элемент
@@ -60,7 +60,7 @@ public:
 				insert(data, root->pLeft); // ...идём дальше.
 			}
 		}
-		else
+		if (data > root->data)
 		{
 			/*if (root->pRight == nullptr)
 			{
