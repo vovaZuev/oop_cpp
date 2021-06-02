@@ -84,6 +84,62 @@ public:
 			return temp->data;
 		}
 	};
+	class ReverseIterator
+	{
+		Element* temp;
+	public:
+		ReverseIterator(Element* temp = nullptr) : temp(temp)
+		{
+			cout << "RevItConstructor:\t" << this << endl;
+		}
+		~ReverseIterator()
+		{
+			cout << "RevItDestructor:\t" << this << endl;
+		}
+		// ********************* Operators **********************************
+		ReverseIterator& operator ++ ()
+		{
+			temp = temp->pPrev;
+			cout << "RevItPrefixIncrement:\t" << this << endl;
+			return *this;
+		}
+		ReverseIterator& operator ++ (int)
+		{
+			ReverseIterator old = *this;
+			temp = temp->pPrev;
+			cout << "RevItPostfixIncrement:\t" << this << endl;
+			return old;
+		}
+		ReverseIterator& operator -- ()
+		{
+			temp = temp->pNext;
+			cout << "RevItPrefixIncrement:\t" << this << endl;
+			return *this;
+		}
+		ReverseIterator& operator -- (int)
+		{
+			ReverseIterator old = *this;
+			temp = temp->pNext;
+			cout << "RevItPostfixIncrement:\t" << this << endl;
+			return old;
+		}
+		bool operator == (const ReverseIterator& other) const
+		{
+			return this->temp == other.temp;
+		}
+		bool operator != (const ReverseIterator& other) const
+		{
+			return this->temp != other.temp;
+		}
+		const int& operator * () const
+		{
+			return temp->data;
+		}
+		int& operator * ()
+		{
+			return temp->data;
+		}
+	};
 	Iterator begin()
 	{
 		return Head;
@@ -97,6 +153,22 @@ public:
 		return nullptr;
 	}
 	const Iterator end() const
+	{
+		return nullptr;
+	}
+	ReverseIterator rbegin()
+	{
+		return Tail;
+	}
+	const ReverseIterator rbegin() const
+	{
+		return Tail;
+	}
+	ReverseIterator rend()
+	{
+		return nullptr;
+	}
+	const ReverseIterator rend() const
 	{
 		return nullptr;
 	}
@@ -226,10 +298,6 @@ public:
 			size++;
 			return;
 		}
-		/*Element* New = new Element(data);
-		New->pNext = Head;
-		Head->pPrev = New;
-		Head = New;*/
 		Head = Head->pPrev = new Element(data, Head);
 		size++;
 	}
@@ -241,10 +309,6 @@ public:
 			size++;
 			return;
 		}
-		/*Element* New = new Element(data);
-		New->pPrev = Tail;
-		Tail->pNext = New;
-		Tail = New;*/
 		Tail = Tail->pNext = new Element(data, nullptr, Tail);
 		size++;
 	}
@@ -279,10 +343,6 @@ public:
 			}
 		}
 		temp->pPrev = temp->pPrev->pNext = new Element(data, temp, temp->pPrev);
-		/*New->pPrev = temp->pPrev;
-		New->pNext = temp;
-		temp->pPrev->pNext = New;
-		temp->pPrev = New;*/
 		size++;
 	}
 	// *************** REMOVE ELEMENTS **********************************
@@ -373,14 +433,6 @@ public:
 List operator + (const List& left, const List& right)
 {
 	List result = left;
-	/*for (List::Iterator it = right.begin(); it != right.end(); it++)
-	{
-		result.push_back(*it);
-	}*/
-	/*for (List::Element* temp = right.Head; temp; temp = temp->pNext)
-	{
-		result.push_back(temp->data);
-	}*/
 	for (int i : right) result.push_back(i);
 	return result;
 }
@@ -399,45 +451,10 @@ int main()
 		cout << *it << tab;
 	}
 	cout << endl;
-	//list1.print();
-	/*List list2 = {34, 55, 89};
-	List list3;
-	list3 = list1 + list2;
-	list3.print();*/
-	/*int n;
-	cout << "Enter size of the list: "; cin >> n;
-	for (int i = 0; i < n; i++)
+	cout << delim;
+	for (List::ReverseIterator it = list1.rbegin(); it != list1.rend(); it++)
 	{
-		list.push_back(rand() % 100);
+		cout << *it << tab;
 	}
-	list[3] = 99;
-	cout << list[3] << endl;
-	list.print();
-	cout << delim;
-	list.print_reverse();
-	cout << delim;*/
-	/*List list2;
-	for (int i = 0; i < n; i++)
-	{
-		list2.push_back(rand() % 50);
-	}
-	list2.print();
-	cout << delim;
-	list2.print_reverse();
-	cout << delim;
-	list = list2;
-	list.print();
-	cout << delim;
-	list.print_reverse();
-	cout << delim;
-	cout << list[3] << endl;
-	list.insert(77, 3);
-	list.print();
-	cout << delim;
-	list.print_reverse();
-	cout << delim;
-	list.erase(5);
-	list.print();
-	cout << delim;
-	list.print_reverse();*/
+	cout << endl;
 }
