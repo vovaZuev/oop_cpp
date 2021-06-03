@@ -110,6 +110,10 @@ public:
 	{
 		return root ? sum(root->pLeft) + sum(root->pRight) + root->data : 0;
 	}
+	double avg(Element* root)
+	{
+		return (double)sum(root) / size(root);
+	}
 };
 
 int main()
@@ -124,8 +128,9 @@ int main()
 	}
 	tree.print(tree.get_root());
 	cout << endl;
-	cout << tree.minValue(tree.get_root()) << endl;
-	cout << tree.maxValue(tree.get_root()) << endl;
-	cout << tree.size(tree.get_root()) << endl;
-	cout << tree.sum(tree.get_root()) << endl;
+	cout << "Minimal value: " << tree.minValue(tree.get_root()) << endl;
+	cout << "Maximal value: " << tree.maxValue(tree.get_root()) << endl;
+	cout << "Size of the tree: " << tree.size(tree.get_root()) << endl;
+	cout << "Sum of elements: " << tree.sum(tree.get_root()) << endl;
+	cout << "Average: " << tree.avg(tree.get_root()) << endl;
 }
