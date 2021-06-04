@@ -23,8 +23,8 @@ class Tree
 			//cout << "EDestructor:\t" << this << endl;
 		}
 		friend class Tree;
-	}; // Указатель на корневой элемент
-	static Element* Root;
+	}; 
+	static Element* Root; // Указатель на корневой элемент
 public:
 	const Element* get_root() const
 	{
@@ -63,14 +63,6 @@ public:
 		}
 		if (data > root->data)
 		{
-			/*if (root->pRight == nullptr)
-			{
-				root->pRight = new Element(data);
-			}
-			else
-			{
-				insert(data, root->pRight);
-			}*/
 			if (root->pRight) insert(data, root->pRight);
 			else root->pRight = new Element(data);
 		}
@@ -91,20 +83,14 @@ public:
 	}
 	int minValue(Element* root = Root)
 	{
-		/*if (root->pLeft == nullptr) return root->data;
-		minValue(root->pLeft);*/
 		return root->pLeft ? minValue(root->pLeft) : root->data;
 	}
 	int maxValue(Element* root = Root)
 	{
-		/*if (root->pRight == nullptr) return root->data;
-		maxValue(root->pRight);*/
 		return root->pRight ? maxValue(root->pRight) : root->data;
 	}
 	int size(Element* root = Root)
 	{
-		/*if (root == nullptr) return 0;
-		else return size(root->pLeft) + size(root->pRight) + 1;*/
 		return root ? size(root->pLeft) + size(root->pRight) + 1 : 0;
 	}
 	int sum(Element* root = Root)
