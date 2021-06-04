@@ -59,6 +59,14 @@ public:
 		clear(Root);
 		cout << "TDestructor:\t" << this << endl;
 	}
+	Tree& operator = (const Tree& other)
+	{
+		if (this == &other) return *this;
+		clear();
+		copy(other.Root);
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
 	void insert(const int& data)
 	{
 		insert(data, Root);
@@ -196,9 +204,13 @@ int main()
 	setlocale(LC_ALL, "");
 	Tree tree = {50, 25, 16, 32, 64, 55, 77};
 	Tree tree2 = tree;
+	Tree tree3;
+	tree3 = tree;
 	tree.print();
 	cout << "*******************************\n";
 	tree2.print();
+	cout << "*******************************\n";
+	tree3.print();
 	cout << endl;
 	/*cout << "Minimal value: " << tree.minValue() << endl;
 	cout << "Maximal value: " << tree.maxValue() << endl;
