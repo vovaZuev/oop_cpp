@@ -49,6 +49,11 @@ public:
 		}
 		cout << "ILConstructor:\t" << this << endl;
 	}
+	Tree(const Tree& other) : Tree()
+	{
+		copy(other.Root);
+		cout << "CConstructor:\t" << this << endl;
+	}
 	~Tree()
 	{
 		clear(Root);
@@ -119,8 +124,15 @@ private:
 	{
 		if (root == nullptr) return;
 		print(root->pLeft);
-		cout << root->data << tab;
+		cout << root << tab << root->data << endl;
 		print(root->pRight);
+	}
+	void copy(Element* root)
+	{
+		if (root == nullptr) return;
+		insert(root->data);
+		copy(root->pLeft);
+		copy(root->pRight);
 	}
 	void clear(Element*& root)
 	{
@@ -183,9 +195,12 @@ int main()
 {
 	setlocale(LC_ALL, "");
 	Tree tree = {50, 25, 16, 32, 64, 55, 77};
+	Tree tree2 = tree;
 	tree.print();
+	cout << "*******************************\n";
+	tree2.print();
 	cout << endl;
-	cout << "Minimal value: " << tree.minValue() << endl;
+	/*cout << "Minimal value: " << tree.minValue() << endl;
 	cout << "Maximal value: " << tree.maxValue() << endl;
 	cout << "Size of the tree: " << tree.size() << endl;
 	cout << "Sum of elements: " << tree.sum() << endl;
@@ -195,5 +210,5 @@ int main()
 	tree.erase(value);
 	tree.print();
 	tree.clear();
-	tree.print();
+	tree.print();*/
 }
