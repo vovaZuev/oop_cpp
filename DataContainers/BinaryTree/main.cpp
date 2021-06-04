@@ -41,6 +41,14 @@ public:
 	{
 		cout << "TConstructor:\t" << this << endl;
 	}
+	Tree(const std::initializer_list<int>& il) : Tree()
+	{
+		for (const int* it = il.begin(); it != il.end(); it++)
+		{
+			insert(*it);
+		}
+		cout << "ILConstructor:\t" << this << endl;
+	}
 	~Tree()
 	{
 		clear(Root);
@@ -174,13 +182,7 @@ private:
 int main()
 {
 	setlocale(LC_ALL, "");
-	int n; // Кол-во эл-тов дерева
-	cout << "Введите количество элементов: "; cin >> n;
-	Tree tree;
-	for (int i = 0; i < n; i++)
-	{
-		tree.insert(rand() % 100);
-	}
+	Tree tree = {50, 25, 16, 32, 64, 55, 77};
 	tree.print();
 	cout << endl;
 	cout << "Minimal value: " << tree.minValue() << endl;
