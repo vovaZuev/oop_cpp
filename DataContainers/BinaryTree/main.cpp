@@ -23,8 +23,7 @@ class Tree
 			//cout << "EDestructor:\t" << this << endl;
 		}
 		friend class Tree;
-	}; 
-	static Element* Root; // Указатель на корневой элемент
+	} *Root; // Указатель на корневой элемент
 public:
 	const Element* get_root() const
 	{
@@ -34,7 +33,7 @@ public:
 	{
 		return Root;
 	}
-	Tree()
+	Tree() : Root(nullptr)
 	{
 		cout << "TConstructor:\t" << this << endl;
 	}
@@ -43,7 +42,44 @@ public:
 		clear(Root);
 		cout << "TDestructor:\t" << this << endl;
 	}
-	void insert(int data, Element* root = Root) // Здесь Element* root - это указатель на ветку (поддерево)
+	void insert(int data)
+	{
+		insert(data, Root);
+	}
+	void print()
+	{
+		print(Root);
+	}
+	void clear()
+	{
+		clear(Root);
+	}
+	int minValue()
+	{
+		return minValue(Root);
+	}
+	int maxValue()
+	{
+		return maxValue(Root);
+	}
+	int size()
+	{
+		return size(Root);
+	}
+	int sum()
+	{
+		return sum(Root);
+	}
+	double avg()
+	{
+		return avg(Root);
+	}
+	void erase(int val)
+	{
+		erase(val, Root);
+	}
+private:
+	void insert(int data, Element* root) // Здесь Element* root - это указатель на ветку (поддерево)
 	{
 		if (this->Root == nullptr) // Если дерево пустое (проверяем основной корень дерева), то инициализируем первый элемент
 		{
@@ -67,41 +103,41 @@ public:
 			else root->pRight = new Element(data);
 		}
 	}
-	void print(Element* root = Root)
+	void print(Element* root)
 	{
 		if (root == nullptr) return;
 		print(root->pLeft);
 		cout << root->data << tab;
 		print(root->pRight);
 	}
-	void clear(Element* root = Root)
+	void clear(Element* root)
 	{
 		if (root == nullptr) return;
 		clear(root->pLeft);
 		clear(root->pRight);
 		delete root;
 	}
-	int minValue(Element* root = Root)
+	int minValue(Element* root)
 	{
 		return root->pLeft ? minValue(root->pLeft) : root->data;
 	}
-	int maxValue(Element* root = Root)
+	int maxValue(Element* root)
 	{
 		return root->pRight ? maxValue(root->pRight) : root->data;
 	}
-	int size(Element* root = Root)
+	int size(Element* root)
 	{
 		return root ? size(root->pLeft) + size(root->pRight) + 1 : 0;
 	}
-	int sum(Element* root = Root)
+	int sum(Element* root)
 	{
 		return root ? sum(root->pLeft) + sum(root->pRight) + root->data : 0;
 	}
-	double avg(Element* root = Root)
+	double avg(Element* root)
 	{
 		return (double)sum(root) / size(root);
 	}
-	void erase(int val, Element* root = Root)
+	void erase(int val, Element* root)
 	{
 		if (val == root->data)
 		{
@@ -127,8 +163,6 @@ public:
 		}
 	}
 };
-
-Tree::Element* Tree::Root = nullptr;
 
 int main()
 {
