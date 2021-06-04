@@ -46,11 +46,11 @@ public:
 		clear(Root);
 		cout << "TDestructor:\t" << this << endl;
 	}
-	void insert(int data)
+	void insert(const int& data)
 	{
 		insert(data, Root);
 	}
-	void erase(int data)
+	void erase(const int& data)
 	{
 		erase(data, Root);
 	}
@@ -83,7 +83,7 @@ public:
 		return avg(Root);
 	}
 private:
-	void insert(int data, Element* root) // Здесь Element* root - это указатель на ветку (поддерево)
+	void insert(const int& data, Element* root) // Здесь Element* root - это указатель на ветку (поддерево)
 	{
 		if (this->Root == nullptr) // Если дерево пустое (проверяем основной корень дерева), то инициализируем первый элемент
 		{
@@ -142,7 +142,7 @@ private:
 	{
 		return (double)sum(root) / size(root);
 	}
-	void erase(int data, Element*& root)
+	void erase(const int& data, Element*& root)
 	{
 		if (root == nullptr) return;
 		erase(data, root->pLeft);
