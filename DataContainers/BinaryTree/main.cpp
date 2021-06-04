@@ -117,7 +117,28 @@ public:
 	}
 	void erase(int val, Element* root = Root)
 	{
+		if (val == root->data)
+		{
 
+		}
+		if (val < root->data)
+		{
+			if (val == root->pLeft->data)
+			{
+
+			}
+			else
+				erase(val, root->pLeft);
+		}
+		else
+		{
+			if (val == root->pRight->data)
+			{
+
+			}
+			else
+				erase(val, root->pRight);
+		}
 	}
 };
 
