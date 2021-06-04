@@ -22,6 +22,10 @@ class Tree
 		{
 			//cout << "EDestructor:\t" << this << endl;
 		}
+		bool isLeaf() const
+		{
+			return pLeft == pRight;
+		}
 		friend class Tree;
 	} *Root; // Указатель на корневой элемент
 public:
@@ -45,6 +49,10 @@ public:
 	void insert(int data)
 	{
 		insert(data, Root);
+	}
+	void erase(int data)
+	{
+		erase(data, Root);
 	}
 	void print()
 	{
@@ -73,10 +81,6 @@ public:
 	double avg()
 	{
 		return avg(Root);
-	}
-	void erase(int val)
-	{
-		erase(val, Root);
 	}
 private:
 	void insert(int data, Element* root) // Здесь Element* root - это указатель на ветку (поддерево)
@@ -110,12 +114,13 @@ private:
 		cout << root->data << tab;
 		print(root->pRight);
 	}
-	void clear(Element* root)
+	void clear(Element*& root)
 	{
 		if (root == nullptr) return;
 		clear(root->pLeft);
 		clear(root->pRight);
 		delete root;
+		root = nullptr;
 	}
 	int minValue(Element* root)
 	{
@@ -137,29 +142,31 @@ private:
 	{
 		return (double)sum(root) / size(root);
 	}
-	void erase(int val, Element* root)
+	void erase(int data, Element*& root)
 	{
-		if (val == root->data)
+		if (root == nullptr) return;
+		erase(data, root->pLeft);
+		erase(data, root->pRight);
+		if (data == root->data)
 		{
-
-		}
-		if (val < root->data)
-		{
-			if (val == root->pLeft->data)
+			if (root->isLeaf())
 			{
-
+				delete root;
+				root = nullptr;
 			}
 			else
-				erase(val, root->pLeft);
-		}
-		else
-		{
-			if (val == root->pRight->data)
 			{
-
+				if (root->pLeft)
+				{
+					root->data = maxValue(root->pLeft);
+					erase(maxValue(root->pLeft), root->pLeft);
+				}
+				else
+				{
+					root->data = minValue(root->pRight);
+					erase(minValue(root->pRight), root->pRight);
+				}
 			}
-			else
-				erase(val, root->pRight);
 		}
 	}
 };
@@ -181,4 +188,10 @@ int main()
 	cout << "Size of the tree: " << tree.size() << endl;
 	cout << "Sum of elements: " << tree.sum() << endl;
 	cout << "Average: " << tree.avg() << endl;
+	int value;
+	cout << "Enter value to erase: "; cin >> value;
+	tree.erase(value);
+	tree.print();
+	tree.clear();
+	tree.print();
 }
