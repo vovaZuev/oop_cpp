@@ -103,6 +103,7 @@ int main()
 #ifdef stl_vector_erase
 	vector<int> vec = {3, 5, 8, 13, 21, 34, 55};
 	print_vector(vec);
+	reverse_print_vector(vec);
 	int index_start, index_stop;
 	/*int index;
 	cout << "¬ведите индекс удал€емого элемента: "; cin >> index;
@@ -113,6 +114,7 @@ int main()
 	cout << "¬ведите конец удал€емого диапазона: "; cin >> index_stop;
 	vec.erase(vec.begin() + index_start, vec.begin() + index_stop);
 	print_vector(vec);
+	reverse_print_vector(vec);
 #endif
 }
 
@@ -129,10 +131,9 @@ template <typename T> void print_vector(const vector<T>& vec)
 
 template <typename T> void reverse_print_vector(const vector<T>& vec)
 {
-	int cap = vec.capacity();
-	for (int i = 0; i < cap; i++)
+	for (vector<int>::const_reverse_iterator it = vec.crbegin(); it != vec.crend(); it++)
 	{
-		cout << vec.at(cap - i - 1) << spc;
+		cout << *it << spc;
 	}
 	cout << endl;
 }
