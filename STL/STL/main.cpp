@@ -2,16 +2,21 @@
 #include <array>
 #include <vector>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
-#define tab " "
+#define spc " "
 #define delim "\n*****************************************************************\n\n"
 //#define stl_array
-#define stl_vector
+//#define stl_vector
 //#define stl_vector_insert
 //#define vector_swap
+#define stl_vector_erase
 
 template <typename T> void vector_properties(const vector<T>& vec);
 template <typename T> void print_vector(const vector<T>& vec);
+template <typename T> void reverse_print_vector(const vector<T>& vec);
 
 int main()
 {
@@ -95,7 +100,20 @@ int main()
 	print_vector(vec1);
 	print_vector(vec2);
 #endif // vector_swap
-
+#ifdef stl_vector_erase
+	vector<int> vec = {3, 5, 8, 13, 21, 34, 55};
+	print_vector(vec);
+	int index_start, index_stop;
+	/*int index;
+	cout << "¬ведите индекс удал€емого элемента: "; cin >> index;
+	vector<int>::iterator position = vec.begin() + index;
+	vec.erase(position);
+	vec.erase(vec.begin() + index);*/
+	cout << "¬ведите начало удал€емого диапазона: "; cin >> index_start;
+	cout << "¬ведите конец удал€емого диапазона: "; cin >> index_stop;
+	vec.erase(vec.begin() + index_start, vec.begin() + index_stop);
+	print_vector(vec);
+#endif
 }
 
 template <typename T> void vector_properties(const vector<T>& vec)
@@ -106,5 +124,15 @@ template <typename T> void vector_properties(const vector<T>& vec)
 }
 template <typename T> void print_vector(const vector<T>& vec)
 {
-	for (int i : vec) cout << i << tab; cout << endl;
+	for (int i : vec) cout << i << spc; cout << endl;
+}
+
+template <typename T> void reverse_print_vector(const vector<T>& vec)
+{
+	int cap = vec.capacity();
+	for (int i = 0; i < cap; i++)
+	{
+		cout << vec.at(cap - i - 1) << spc;
+	}
+	cout << endl;
 }
