@@ -21,6 +21,7 @@ void printBase(map<string, list<string>>& base);
 void printNumberData(map<string, list<string>>& base, string number);
 void getFullBase(map<string, list<string>>& base);
 void getNumberData(map<string, list<string>>& base);
+void getRangeData(map<string, list<string>>& base);
 
 int main()
 {
@@ -38,7 +39,7 @@ int main()
 	};
 
 	int choice;
-	cout << "1 - Распечатка всей базы\n2 - Распечатка данных по заданному номеру\n"; cin >> choice;
+	cout << "1 - Распечатка всей базы\n2 - Распечатка данных по заданному номеру\n3 - Распечатка данных по дапазону"; cin >> choice;
 	if (choice == 1)
 	{
 		getFullBase(finebase);
@@ -47,6 +48,12 @@ int main()
 	{
 		getNumberData(finebase);
 	}
+	else if (choice == 3)
+	{
+		getRangeData(finebase);
+	}
+	else
+		cout << "Введены неверные данные. До свидания";
 }
 bool searchBase(map<string, list<string>>& base, string number, string crime)
 {
@@ -119,4 +126,10 @@ bool findNumber(map<string, list<string>>& base, string number)
 		}
 	}
 	return isfound;
+}
+void getRangeData(map<string, list<string>>& base)
+{
+	string num1, num2;
+	cout << "Введите нижнее значение: "; cin >> num1;
+	cout << "Введите верхнее значение: "; cin >> num2;
 }
