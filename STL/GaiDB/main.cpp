@@ -16,6 +16,7 @@ using std::string;
 #define delim "/n**************************************/n/n"
 
 bool searchBase(map<string, list<string>>& base, string number, string crime);
+bool findNumber(map<string, list<string>>& base, string number);
 void printBase(map<string, list<string>>& base);
 void printNumberData(map<string, list<string>>& base, string number);
 void getFullBase(map<string, list<string>>& base);
@@ -101,5 +102,21 @@ void getNumberData(map<string, list<string>>& base)
 {
 	string number;
 	cout << "Введите номер автомобиля: "; cin >> number;
-	printNumberData(base, number);
+	if (findNumber(base, number))
+		printNumberData(base, number);
+	else
+		cout << "Такого номера нет в базе.\n";
+}
+bool findNumber(map<string, list<string>>& base, string number)
+{
+	bool isfound = false;
+	for (map<string, list<string>>::iterator it = base.begin(); it != base.end(); it++)
+	{
+		if (it->first == number)
+		{
+			isfound = true;
+			break;
+		}
+	}
+	return isfound;
 }
