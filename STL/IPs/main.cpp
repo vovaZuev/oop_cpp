@@ -35,6 +35,11 @@ int main()
 			int i = 1;
 			while (fin >> ip >> mac)
 			{
+				for (int i = 0; i < mac.length(); i++)
+				{
+					if (mac[i] == '-')
+						mac[i] = ':';
+				}
 				fout << "host 201-" << i << endl;
 				fout << "{\n";
 				fout << "\thardware ethernet\t" << mac << ";\n";
