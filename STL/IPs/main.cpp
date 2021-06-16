@@ -4,6 +4,7 @@
 using namespace std;
 
 #define spaces "        "
+#define delimiter "\n*********************************************************************\n\n"
 
 int main()
 {
@@ -17,11 +18,29 @@ int main()
 	{
 		while (!fin.eof())
 		{
-			string left{};
-			string right{};
-			while (fin >> left >> right)
+			string ip{};
+			string mac{};
+			while (fin >> ip >> mac)
 			{
-				fout << right << spaces << left << endl;
+				fout << mac << spaces << ip << endl;
+			}
+		}
+		fout << delimiter;
+		fin.clear();
+		fin.seekg(0);
+		while (!fin.eof())
+		{
+			string ip{};
+			string mac{};
+			int i = 1;
+			while (fin >> ip >> mac)
+			{
+				fout << "host 201-" << i << endl;
+				fout << "{\n";
+				fout << "\thardware ethernet\t" << mac << ";\n";
+				fout << "\tfixed-address\t\t" << ip << ";\n";
+				fout << "}\n\n";
+				++i;
 			}
 		}
 	}
@@ -29,6 +48,7 @@ int main()
 	{
 		cout << "Error\n";
 	}
+
 	fout.close();
 	fin.close();
 	system("notepad final.txt");
