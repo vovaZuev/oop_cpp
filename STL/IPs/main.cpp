@@ -12,8 +12,6 @@ int main()
 	ifstream fin;
 	fin.open("original.txt");
 	fout.open("final.txt");
-	const int n = 256;
-	char buffer[n] = {};
 	if (fin.is_open())
 	{
 		while (!fin.eof())
