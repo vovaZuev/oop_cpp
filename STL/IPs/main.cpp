@@ -1,26 +1,30 @@
 #include <iostream>
+#include <algorithm>
 #include <fstream>
 
 using namespace std;
 
-#define spaces "        "
+#define tab '\t'
 #define delimiter "\n*********************************************************************\n\n"
 
 int main()
 {
-	ofstream fout;
+	string input_file = "original.txt";
+	
 	ifstream fin;
-	fin.open("original.txt");
-	fout.open("final.txt");
+	fin.open(input_file);
 	if (fin.is_open())
 	{
+		string output_file = "final.txt";
+		ofstream fout;
+		fout.open(output_file);
 		while (!fin.eof())
 		{
 			string ip{};
 			string mac{};
 			while (fin >> ip >> mac)
 			{
-				fout << mac << spaces << ip << endl;
+				fout << mac << tab << ip << endl;
 			}
 		}
 		fout << delimiter;
@@ -33,11 +37,7 @@ int main()
 			int i = 1;
 			while (fin >> ip >> mac)
 			{
-				for (int i = 0; i < mac.length(); i++)
-				{
-					if (mac[i] == '-')
-						mac[i] = ':';
-				}
+				replace(mac.begin(), mac.end(), '-', ':');
 				fout << "host 201-" << i << endl;
 				fout << "{\n";
 				fout << "\thardware ethernet\t" << mac << ";\n";
@@ -46,13 +46,12 @@ int main()
 				++i;
 			}
 		}
+		fout.close();
 	}
 	else
 	{
 		cout << "Error\n";
 	}
-
-	fout.close();
 	fin.close();
 	system("notepad final.txt");
 }
