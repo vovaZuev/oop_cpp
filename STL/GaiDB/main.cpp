@@ -13,15 +13,16 @@ using std::string;
 
 #define spc ' '
 #define tab '	'
-#define delim "/n**************************************/n/n"
+#define delim "********************************************************************"
 
 bool searchBase(map<string, list<string>>& base, string number, string crime);
 bool findNumber(map<string, list<string>>& base, string number);
 void printBase(map<string, list<string>>& base);
 void printNumberData(map<string, list<string>>& base, string number);
-void getFullBase(map<string, list<string>>& base);
+void searchInsertBase(map<string, list<string>>& base);
 void getNumberData(map<string, list<string>>& base);
 void getRangeData(map<string, list<string>>& base);
+void menu(map<string, list<string>>& finebase);
 
 int main()
 {
@@ -37,23 +38,7 @@ int main()
 		pair<string, list<string>>("Т782КУ", {"Пересечение сплошной линии", "Превышение скорости"}),
 		pair<string, list<string>>("О908АК", {"Пересечение двойной сплошной линии", "Наезд на сотрудника ГАИ", "Езда в нетрезвом виде"})
 	};
-
-	int choice;
-	cout << "1 - Распечатка всей базы\n2 - Распечатка данных по заданному номеру\n3 - Распечатка данных по дапазону"; cin >> choice;
-	if (choice == 1)
-	{
-		getFullBase(finebase);
-	}
-	else if (choice == 2)
-	{
-		getNumberData(finebase);
-	}
-	else if (choice == 3)
-	{
-		getRangeData(finebase);
-	}
-	else
-		cout << "Введены неверные данные. До свидания";
+	menu(finebase);
 }
 bool searchBase(map<string, list<string>>& base, string number, string crime)
 {
@@ -91,7 +76,7 @@ void printBase(map<string, list<string>>& base)
 		printNumberData(base, it->first);
 	}
 }
-void getFullBase(map<string, list<string>>& base)
+void searchInsertBase(map<string, list<string>>& base)
 {
 	string number;
 	string crime;
@@ -132,4 +117,36 @@ void getRangeData(map<string, list<string>>& base)
 	string num1, num2;
 	cout << "Введите нижнее значение: "; cin >> num1;
 	cout << "Введите верхнее значение: "; cin >> num2;
+	for (map<string, list<string>>::iterator it = base.begin(); it != base.end(); it++)
+	{
+		if (it->first >= num1 && it->first <= num2)
+			printNumberData(base, it->first);
+	}
+}
+void menu(map<string, list<string>>& finebase)
+{
+	int choice;
+	cout << "1 - Распечатка всей базы\n2 - Распечатка данных по заданному номеру\n3 - Распечатка данных по дапазону\n4 - Поиск и добавление данных\n5 - Выход\n"; cin >> choice;
+	
+	switch (choice)
+	{
+	case 1:
+		printBase(finebase);
+		break;
+	case 2:
+		getNumberData(finebase);
+		break;
+	case 3:
+		getRangeData(finebase);
+		break;
+	case 4:
+		searchInsertBase(finebase);
+		break;
+	case 5:
+		return;
+	default:
+		cout << "Введены неверные данные. До свидания\n";
+	}
+	cout << delim << endl;
+	menu(finebase);
 }
